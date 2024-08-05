@@ -18,7 +18,7 @@ class VerfiyingGoogleToken extends AuthenticationState{}
 
 class EmailOtpVerified extends AuthenticationState{}
 class MobileNumberOtpVerified extends AuthenticationState{}
-class GoogleAuthenticationToken extends AuthenticationState{}
+class GoogleAuthenticationTokenVerified extends AuthenticationState{}
 
 class ErrorSendingEmailOtp extends AuthenticationState{
   final String errorMessage;

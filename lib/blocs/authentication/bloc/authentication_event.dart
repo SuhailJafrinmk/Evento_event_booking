@@ -20,3 +20,6 @@ class VerifyMobileOtp extends AuthenticationEvent{
   final Map<String,String> mobileAndOtp;
   VerifyMobileOtp({required this.mobileAndOtp});
 }
+class GoogleSignInClicked extends AuthenticationEvent{
+  
+}

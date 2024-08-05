@@ -20,13 +20,13 @@ class DioClient{
       },
     )
   );
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (options, handler) {
+  // dio.interceptors.add(
+  //   InterceptorsWrapper(
+  //     onRequest: (options, handler) {
         
-      },
-    )
-  );
+  //     },
+  //   )
+  // );
       // Bypass SSL Verification (for development purposes)
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) => true;

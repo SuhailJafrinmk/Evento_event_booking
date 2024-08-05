@@ -11,9 +11,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 class EmailOtpVerification extends StatelessWidget {
   final String email;
   String otpCode = '00';
-
   EmailOtpVerification({super.key, required this.email});
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -21,6 +19,8 @@ class EmailOtpVerification extends StatelessWidget {
       listener: (context, state) {
       if(state is EmailOtpVerified){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+      }else if(state is EmailOtpNotVerified){
+        ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false,state.errorMessage));
       }
       },
       child: Scaffold(
