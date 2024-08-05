@@ -8,11 +8,15 @@ class RequestEmailOtp extends AuthenticationEvent{
 }
 
 class VerifyEmailOtp extends AuthenticationEvent{
-  final Map<String,String> otp;
-  VerifyEmailOtp({required this.otp});
+  final Map<String,String> emailAndOtp;
+  VerifyEmailOtp({required this.emailAndOtp});
 }
 
 class RequestMobileOtp extends AuthenticationEvent{
   final Map<String,String> mobileNumber;
   RequestMobileOtp({required this.mobileNumber});
+}
+class VerifyMobileOtp extends AuthenticationEvent{
+  final Map<String,String> mobileAndOtp;
+  VerifyMobileOtp({required this.mobileAndOtp});
 }

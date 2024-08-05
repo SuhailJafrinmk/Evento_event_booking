@@ -1,22 +1,17 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
-import 'package:evento_event_booking/utils/app/validations.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
-import 'package:evento_event_booking/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-class MobileOtpVerification extends StatefulWidget {
-  @override
-  State<MobileOtpVerification> createState() => _MobileOtpVerificationState();
-}
+class phoneOtpVerification extends StatelessWidget {
+ final String phoneNumber;
+ late String otpCode;
 
-class _MobileOtpVerificationState extends State<MobileOtpVerification> {
-  final TextEditingController mobileNumberContoller = TextEditingController();
-  final formkey = GlobalKey<FormState>();
+ phoneOtpVerification({super.key, required this.phoneNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -25,64 +20,67 @@ class _MobileOtpVerificationState extends State<MobileOtpVerification> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: Form(
-          key: formkey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(flex: 1, child: SizedBox()),
-              Expanded(
-                  flex: 5,
-                  child: SizedBox(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 2,
+             child: SizedBox()),
+            Expanded(
+                flex: 6,
+                child: SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mobile Number\nVerification',
+                          'Mobile number\nverification',
                           style: montserratLarge,
                         ),
                         SizedBox(
-                          height: size.width * .04,
+                          height: size.height * 0.01,
                         ),
-                        Text('Enter your number to send an otp'),
+                        Text('Enter the five digit OTP send to your Mobile number'),
                         SizedBox(
-                          height: size.height * .02,
+                          height: size.height * 0.01,
                         ),
-                        CustomTextField(
-                            prefixText: '+91 ',
-                            inputType: TextInputType.number,
-                            validator: (value) =>
-                                Validations.phoneNumberValidate(value),
-                            prefixIcon: FontAwesomeIcons.mobileScreen,
-                            hintText: 'Mobile number',
-                            textEditingController: mobileNumberContoller),
-                        SizedBox(
-                          height: size.height * .02,
+                        OtpTextField(
+                          fieldHeight: size.width*.12,
+                          fieldWidth: size.width*.12,
+                          keyboardType: TextInputType.number,
+                          textStyle: TextStyle(color: Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
+                          numberOfFields: 6,
+                          borderColor: Color(0xFF512DA8),
+                          showFieldAsBox: true,
+                          onCodeChanged: (String code) {
+                            
+                          },
+                          onSubmit: (String verificationCode) {
+                          otpCode=verificationCode;
+                          }, // end onSubmit
                         ),
+                        SizedBox(height: size.height*.02,),
                         CustomButtonBlack(
+                          text: 'verify',
+                          color: Colors.cyan,
+                          textColor: Appthemes.backgroundColor,
+                          width: size.width,
                           ontap: () {
-                            if (formkey.currentState!.validate()) {
-                              BlocProvider.of<AuthenticationBloc>(context).add(
-                                  RequestMobileOtp(mobileNumber: {
-                                "phone_number": "+91 ${mobileNumberContoller.text}"
-                              }));
+                            if(otpCode.length==6){
+                              BlocProvider.of<AuthenticationBloc>(context).add(VerifyEmailOtp(emailAndOtp: {"phone_number":"+91$phoneNumber","otp":otpCode}));
                             }else{
-                              ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'form not valid'));
+                              ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'Please check your OTP'));
                             }
                           },
-                          width: size.width,
-                          text: 'Send otp to verify',
-                          color: Appthemes.whiteColor,
-                          textColor: Appthemes.backgroundColor,
-                        ),
+                          )
                       ],
                     ),
-                  )),
-              Expanded(flex: 5, child: SizedBox()),
-            ],
-          ),
+                  ),
+                )),
+            Expanded(flex: 4, child: SizedBox())
+          ],
         ),
       ),
     );

@@ -1,52 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-class CustomButtonBlack extends StatelessWidget {
-final double ? width;
-final Color ? color;
-final String text;
-final double ? height;
-final VoidCallback ? ontap;
-final double ? buttonRadius;
-final Color ? textColor;
-final double ? elevation;
+class CustomButtonBlack extends StatefulWidget {
+  final double? width;
+  final Color? color;
+  final String text;
+  final double? height;
+  final VoidCallback? ontap;
+  final double? buttonRadius;
+  final Color? textColor;
+  final double? elevation;
 
-  const CustomButtonBlack
-  ({
-  super.key,
-  required this.text,
-  this.buttonRadius,
-  this.width,
-  this.color,
-  this.height,
-  this.ontap,
-  this.textColor,
-  this.elevation
+  CustomButtonBlack({
+    super.key,
+    required this.text,
+    this.buttonRadius,
+    this.width,
+    this.color,
+    this.height,
+    this.ontap,
+    this.textColor,
+    this.elevation,
   });
 
+  @override
+  State<CustomButtonBlack> createState() => _CustomButtonBlackState();
+}
+
+class _CustomButtonBlackState extends State<CustomButtonBlack> {
+  late Color buttonColor;
+
+  @override
+  void initState() {
+    super.initState();
+    buttonColor = widget.color ?? Colors.black;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Size size=MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: ontap,
-      child: Card(
-        elevation: elevation ?? 10,
+      onTap: () {
+        if (widget.ontap != null) {
+          widget.ontap!();
+        }
+        setState(() {
+          buttonColor = buttonColor.withOpacity(0.6);
+        });
+      },
+      child: Material(
+        elevation: widget.elevation ?? 10,
+        color: widget.color ?? Colors.black,
+        borderRadius: BorderRadius.circular(widget.buttonRadius ?? 10),
         child: Container(
-          width: width ?? size.width*.9,
-          height: height ?? size.height*.08,
+          width: widget.width ?? size.width * 0.9,
+          height: widget.height ?? size.height * 0.08,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(buttonRadius ?? 10),
-            color: color ?? Colors.black,
+            borderRadius: BorderRadius.circular(widget.buttonRadius ?? 10),
+            color: buttonColor,
           ),
           child: Center(
             child: Text(
-              text,
+              widget.text,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: textColor ?? Colors.white,
-                ),
+                color: widget.textColor ?? Colors.white,
+              ),
             ),
           ),
         ),

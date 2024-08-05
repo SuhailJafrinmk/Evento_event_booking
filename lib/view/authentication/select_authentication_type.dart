@@ -2,7 +2,7 @@ import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/authentication/email_login.dart';
-import 'package:evento_event_booking/view/authentication/phone_otp_verification.dart';
+import 'package:evento_event_booking/view/authentication/phone_otp_request.dart';
 import 'package:evento_event_booking/view/home_screen.dart';
 import 'package:evento_event_booking/widgets/login_type_container.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +54,7 @@ class SelectAuthentication extends StatelessWidget {
                     SizedBox(height: size.height*0.05,),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MobileOtpVerification()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MobileOtpRequesting()));
                       },
                       child: Container(
                         height: size.height*.07,

@@ -1,12 +1,17 @@
+import 'dart:math';
+
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/app/validations.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
+import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/view/authentication/email_otp_verification.dart';
+import 'package:evento_event_booking/view/home_screen.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer' as developer;
 
 class EmailLogin extends StatefulWidget {
   @override
@@ -22,8 +27,13 @@ class _EmailLoginState extends State<EmailLogin> {
     final Size size = MediaQuery.of(context).size;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        if(state is EmailOtpRequested){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailOtpVerification()));
+        developer.log('state of email login page is $state');
+        if(state is RequestingEmailOtp){
+         ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, true, 'Otp send to your registered email id'));
+        }else if(state is EmailOtpRequested){
+           Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailOtpVerification(email: emailController.text,)));
+        }else if(state is ErrorSendingEmailOtp){
+          ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, true, state.errorMessage));
         }
       },
       child: Scaffold(
@@ -72,7 +82,7 @@ class _EmailLoginState extends State<EmailLogin> {
                                           'email': emailController.text
                                         }));
                                       } else {
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Form not valid')));
+                                        ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'Invalid credentials'));
                                       }
                                     },
                                     elevation: 20,
