@@ -1,7 +1,9 @@
 
+import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/utils/app_exceptions.dart';
 
 AppExceptions mapStatusCodeToException(int ? statusCode) {
+  logInfo('checking the status codes of the response');
   switch (statusCode) {
     case 400:
       return AppExceptions(errorMessage: 'Bad request');

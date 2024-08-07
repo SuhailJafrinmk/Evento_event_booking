@@ -10,4 +10,5 @@ class ApiUrls{
   static const String updatePhone='/accounts/update-phone/';
   static const String updatePhoneVerify='/accounts/verify-update-phone-otp/';
   static const String updateEmailVerify='/accounts/verify-update-phone-otp/';
+  static const String refreshToken='/api/token/refresh/';
 }

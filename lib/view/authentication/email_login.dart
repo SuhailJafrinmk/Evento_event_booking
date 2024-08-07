@@ -86,14 +86,22 @@ class _EmailLoginState extends State<EmailLogin> {
                                       }
                                     },
                                     elevation: 20,
-                                    width: size.width * .5,
-                                    height: size.height * .07,
+                                    width: size.width*.94,
                                     text: 'Sign in',
                                     color: Appthemes.primaryColor,
-                                    buttonRadius: 60,
+                                    textColor: Appthemes.backgroundColor,
                                   ),
+                               
                                 ],
                               ),
+                                 BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                                    builder: (context, state) {
+                                      if(state is RequestingEmailOtp){
+                                        return Text('Please wait for a second...');
+                                      }
+                                      return SizedBox();
+                                    },
+                                  )
                             ],
                           ),
                         )),

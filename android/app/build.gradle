@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    // id 'com.google.gms.google-services' // Apply Google services plugin
 }
 
 def localProperties = new Properties()
@@ -51,9 +52,17 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+    signingConfigs{
+        debug{
+            keyAlias 'androiddebugkey'
+            keyPassword 'androidkey'
+            storeFile file('mykey.jks')
+            storePassword 'androidkey'
+        }
+    }
 
     buildTypes {
-        release {
+        debug {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
@@ -65,4 +74,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+}
+// apply plugin: 'com.google.gms.google-services' // Add this line at the end

@@ -1,9 +1,11 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
+import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/view/home_screen.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
+import 'package:evento_event_booking/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -24,6 +26,7 @@ class EmailOtpVerification extends StatelessWidget {
       }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SizedBox(
           height: size.height,
           width: size.width,
@@ -47,11 +50,21 @@ class EmailOtpVerification extends StatelessWidget {
                             height: size.height * 0.01,
                           ),
                           Text(
-                              'Enter the five digit OTP send to your Email id'),
+                              'Enter the six digit OTP send $email'),
                           SizedBox(
                             height: size.height * 0.01,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CountdownTimerWidget(),
+                            ],
+                          ),
+                            SizedBox(
+                            height: size.height * 0.01,
+                          ),
                           OtpTextField(
+                            contentPadding: const EdgeInsets.all(3),
                             fieldHeight: size.width * .12,
                             fieldWidth: size.width * .12,
                             keyboardType: TextInputType.number,
@@ -86,6 +99,25 @@ class EmailOtpVerification extends StatelessWidget {
                                     customSnackbar(context, false,
                                         'Please check your OTP'));
                               }
+                            },
+                          ),
+                                       SizedBox(
+                            height: size.height * .02,
+                          ),
+                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              if(state is VerifyingEmailOtp){
+                                return  Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                         
+                                    Text('verfiying your otp'),
+                                    SizedBox(width: 10,),
+                                    CustomProgressIndicator(),
+                                  ],
+                                );
+                              }
+                              return SizedBox();
                             },
                           )
                         ],

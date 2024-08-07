@@ -38,4 +38,8 @@ class MobileNumberOtpNotVerified extends AuthenticationState{
   final String errorMessage;
   MobileNumberOtpNotVerified({required this.errorMessage});
 }
-class GoogleTokenNOtVerified extends AuthenticationState{}
+class GoogleTokenNOtVerified extends AuthenticationState{
+  final String errorMessage;
+  GoogleTokenNOtVerified({required this.errorMessage});
+}
+class GoogleTokenVerified extends AuthenticationState{}

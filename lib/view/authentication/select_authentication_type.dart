@@ -4,12 +4,10 @@ import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/authentication/email_login.dart';
 import 'package:evento_event_booking/view/authentication/phone_otp_request.dart';
-import 'package:evento_event_booking/view/home_screen.dart';
 import 'package:evento_event_booking/widgets/login_type_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectAuthentication extends StatelessWidget {
   const SelectAuthentication({super.key});

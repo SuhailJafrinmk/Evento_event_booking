@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:bloc/bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
+import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/repositories/authentication_repo.dart';
 import 'package:meta/meta.dart';
 
@@ -43,12 +44,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   FutureOr<void> verifyEmailOtp(VerifyEmailOtp event, Emitter<AuthenticationState> emit) async {
     emit(VerifyingEmailOtp());
     final response = await UserAuthenticationRepo.verifyEmailOtp(event.emailAndOtp);
+    logInfo('the response is ${response.right}');
     if (response.isRight) {
       final result = response.right.data;
       if (result.containsKey('access_token')) {
-        final String token = result['access_token'];
-        SharedPref.instance.storeToken(token);
-        developer.log('Token stored in shared pref');
+        final String accessToken = result['access_token'];
+        final String refreshToken=result['refresh_token'];
+        SharedPref.instance.storeTokens(accessToken,refreshToken);
+        logInfo('access token stored on email authentication is ${SharedPref.instance.getToken()}');
+        logInfo('refresh token stored on email authentication is ${SharedPref.instance.getRefreshToken()}');
       }
       emit(EmailOtpVerified());
     } else {
@@ -65,7 +69,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     final result = await UserAuthenticationRepo.requestMobileOtp(event.mobileNumber);
     emit(result.fold(
       (exception) => MobileNumberOtpNotVerified(errorMessage: exception.errorMessage),
-      (right) => MobileNumberOtpVerified(),
+      (right) => MobileOtpRequested(),
     ));
   }
 
@@ -73,21 +77,56 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   /// 
   /// [event] The VerifyMobileOtp event containing the mobile number and OTP.
   /// [emit] The function to emit new states.
-  FutureOr<void> verifyMobileOtp(VerifyMobileOtp event, Emitter<AuthenticationState> emit) {
-    // Implementation for verifying mobile OTP
+  FutureOr<void> verifyMobileOtp(VerifyMobileOtp event, Emitter<AuthenticationState> emit)async{
+    emit(VerfiyingMobileOtp());
+    final response = await UserAuthenticationRepo.verifyMobileOtp(event.mobileAndOtp);
+    if (response.isRight) {
+      final result = response.right.data;
+      if (result.containsKey('access_token')) {
+        final String accessToken = result['access_token'];
+        final String refreshToken=result['refresh_token'];
+        SharedPref.instance.storeTokens(accessToken, refreshToken);
+        logInfo('access token stored in mobile authentication is ${SharedPref.instance.getToken()}');
+        logInfo('refresh token stored on mobile authenticatin is ${SharedPref.instance.getRefreshToken()}');
+      }
+      emit(MobileNumberOtpVerified());
+    } else {
+      emit(MobileNumberOtpNotVerified(errorMessage: response.left.errorMessage));
+    }
+
   }
 
-  /// Handles the GoogleSignInClicked event by signing in with Google.
-  /// 
-  /// [event] The GoogleSignInClicked event.
-  /// [emit] The function to emit new states.
-  FutureOr<void> googleSignInClicked(GoogleSignInClicked event, Emitter<AuthenticationState> emit) async {
-    emit(RequestingGoogleToken());
-    final result = await UserAuthenticationRepo.googleAuthentication();
-    if (result.isLeft) {
-      emit(ErrorGettingGoogleToken());
-    } else {
-      emit(GoogleAuthenticationTokenVerified());
-    }
+/// Handles the GoogleSignInClicked event by signing in with Google.
+/// 
+/// [event] The GoogleSignInClicked event.
+/// [emit] The function to emit new states.
+FutureOr<void> googleSignInClicked(GoogleSignInClicked event, Emitter<AuthenticationState> emit) async {
+  developer.log('inside the GoogleSignIn BLoC is clicked');
+  emit(RequestingGoogleToken());
+  final result = await UserAuthenticationRepo.googleAuthentication();
+  if (result.isLeft) {
+    developer.log('there was an error with google authentication');
+    emit(ErrorGettingGoogleToken());
+    return;
   }
+  final String? googleAuthToken =result.right;
+  developer.log('the auth token provided by google is $googleAuthToken this is from bloc');
+  if (googleAuthToken != null) {
+    developer.log('started to verifying the ticket');
+    final response = await UserAuthenticationRepo.verifyGoogleSignin({'access_token': googleAuthToken});
+    if (response.isLeft) {
+      logWarning('the exception is ${response.left.errorMessage}');
+      emit(GoogleTokenNOtVerified(errorMessage: response.left.errorMessage));
+    } else {
+      final String backendToken=response.right;
+      // SharedPref.instance.storeAccessToken(backendToken); //the backend token recieved from google auth is stored in local storage
+      developer.log('the backend token recieved from google auth is stored in local storage');
+      developer.log("${SharedPref.instance.getToken()}");
+      emit(GoogleTokenVerified());
+    }
+  } else {
+    emit(ErrorGettingGoogleToken());  // Emit an error if the token is null
+  }
+}
+
 }
