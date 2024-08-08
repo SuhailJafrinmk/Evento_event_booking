@@ -1,5 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:evento_event_booking/data/network/api_services.dart';
+import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/utils/app_exceptions.dart';
 import 'package:evento_event_booking/utils/identify_exception.dart';
@@ -42,6 +43,7 @@ class UserAuthenticationRepo {
         return Left(mapStatusCodeToException(response.statusCode));
       }
     } catch (e) {
+      logError('the error message is ${e.toString()}');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
@@ -132,6 +134,6 @@ class UserAuthenticationRepo {
       developer.log('function exited control with out a token from backend with error ${e.toString()}');
       return Left(AppExceptions(errorMessage: 'some error occured'));
     }
-
   }
+
 }

@@ -33,7 +33,7 @@ class _EmailLoginState extends State<EmailLogin> {
         }else if(state is EmailOtpRequested){
            Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailOtpVerification(email: emailController.text,)));
         }else if(state is ErrorSendingEmailOtp){
-          ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, true, state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, state.errorMessage));
         }
       },
       child: Scaffold(

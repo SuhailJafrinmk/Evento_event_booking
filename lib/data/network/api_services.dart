@@ -54,11 +54,10 @@ class ApiServices{
       return response;
       }
 
-      Future<Response> tokenRefresh(Map<String,String> accessToken)async{
-      developer.log('logging the map inside the api service class ${jsonEncode(accessToken)}');
+      Future<Response> tokenRefresh(Map<String,String> refreshToken)async{
       final response=await DioClient.instance.dio.post(
         ApiUrls.googleAuthentication,
-        data: jsonEncode(accessToken),
+        data: jsonEncode(refreshToken),
       );
       return response;
       }

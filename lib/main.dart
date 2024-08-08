@@ -2,7 +2,7 @@ import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bl
 import 'package:evento_event_booking/data/network/dio_configure.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
-import 'package:evento_event_booking/view/on_boarding/onboarding_screen_one.dart';
+import 'package:evento_event_booking/view/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       theme: Appthemes.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: OnBoardingPage(),
+      home: const SplashScreen(),
     );
   }
 }

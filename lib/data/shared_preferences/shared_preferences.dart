@@ -16,6 +16,7 @@ class SharedPref{
   }
   void removeToken()async{
     await sharedPref.remove(token);
+    await sharedPref.remove(refreshToken);
   }
   String ? getToken(){
     return sharedPref.getString(token);

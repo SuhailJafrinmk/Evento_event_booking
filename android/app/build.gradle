@@ -27,7 +27,7 @@ android {
     compileSdkVersion 34
     namespace "com.example.evento_event_booking"
     // compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

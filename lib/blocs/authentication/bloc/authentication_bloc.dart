@@ -68,7 +68,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     emit(RequestingMobileOtp());
     final result = await UserAuthenticationRepo.requestMobileOtp(event.mobileNumber);
     emit(result.fold(
-      (exception) => MobileNumberOtpNotVerified(errorMessage: exception.errorMessage),
+      (exception) => ErrorSendingMobileOtp(errorMessage: exception.errorMessage),
       (right) => MobileOtpRequested(),
     ));
   }
