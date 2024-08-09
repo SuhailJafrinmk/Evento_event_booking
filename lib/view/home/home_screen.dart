@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/data/network/api_services.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
@@ -24,7 +25,12 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         height: size.height,
         width: size.width,
-        child: CustomButtonBlack(
+        child: Column(
+          children: [
+            SizedBox(height: size.height*.8,),
+            CustomButtonBlack(
+          width: size.width*.9,
+          height: 50,
           color: Colors.red,
           text: 'delete tokens',
           ontap: () {
@@ -33,6 +39,18 @@ class _HomePageState extends State<HomePage> {
             Navigator.pop(context);
           },
           ),
+          SizedBox(height: size.height*0.05,),
+          CustomButtonBlack(
+            text: 'get events',
+            color: Colors.red,
+            ontap: ()async {
+              final response=await ApiServices.instance.getEvents();
+              logInfo('event data is ${response.data}');
+            },
+            ),
+          
+          ],
+        )
       ),
     );
   }

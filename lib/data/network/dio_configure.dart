@@ -13,8 +13,8 @@ class DioClient {
   void initialize() {
     dio = Dio(BaseOptions(
       baseUrl: ApiUrls.baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 15),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -34,9 +34,10 @@ class DioClient {
       },
       onError: (error, handler) async {
         if (error.response?.statusCode == 401) {
-          logError('request failed with status code 401 user not authorised');
+          logError('request failed with status code 401 user not authorised token need to be refreshed');
           bool success = await refreshToken();
           if (success) {
+            logInfo('token successully refreshed');
             return handler.resolve(await _retryRequest(error.requestOptions));
           }
         }
@@ -52,6 +53,7 @@ class DioClient {
   }
 
   Future<Response> _retryRequest(RequestOptions requestOptions) async {
+    logInfo('requesting for a new token.........');
     final options = Options(
       method: requestOptions.method,
       headers: requestOptions.headers,
@@ -68,17 +70,22 @@ class DioClient {
     logInfo('token is getting refreshed');
     try {
       final String? refreshToken = SharedPref.instance.getRefreshToken();
+      logInfo('refresh token is $refreshToken');
       if (refreshToken == null) {
+        logError('no refresh token found in shared pref');
         throw Exception("No refresh token found");
       }
       final response =
           await ApiServices.instance.tokenRefresh({"refresh": refreshToken});
+          logInfo('response for refreshing token from api is ${response.data}');
       if (response.statusCode == 200) {
         final String newAccessToken = response.data['access'];
         final String newRefreshToken = response.data['refresh'];
         SharedPref.instance.storeTokens(newAccessToken, newRefreshToken);
+        logInfo('new tokens have been stored to sharedpref');
         return true;
       } else {
+        logError('failed to refresh the token');
         throw Exception("Failed to refresh token");
       }
     } catch (e) {

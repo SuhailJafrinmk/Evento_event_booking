@@ -11,4 +11,5 @@ class ApiUrls{
   static const String updatePhoneVerify='/accounts/verify-update-phone-otp/';
   static const String updateEmailVerify='/accounts/verify-update-phone-otp/';
   static const String refreshToken='/api/token/refresh/';
+  static const String getEvents='/events/list_all_events/';
 }

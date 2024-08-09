@@ -4,6 +4,8 @@ import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:evento_event_booking/data/network/dio_configure.dart';
+import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
+import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
 import 'package:evento_event_booking/utils/app_exceptions.dart';
 
@@ -54,13 +56,75 @@ class ApiServices{
       return response;
       }
 
-      Future<Response> tokenRefresh(Map<String,String> refreshToken)async{
-      final response=await DioClient.instance.dio.post(
-        ApiUrls.googleAuthentication,
-        data: jsonEncode(refreshToken),
-      );
-      return response;
-      }
+        Future<Response> tokenRefresh(Map<String, String> refreshToken) async {
+    logInfo('The access token is ${SharedPref.instance.getToken()} and refresh token is ${SharedPref.instance.getRefreshToken()}');
+    logInfo('API is calling for refreshing token');
 
+    try {
+      final String url = "${ApiUrls.baseUrl}${ApiUrls.refreshToken}";
+      logInfo('URL: $url');
+      
+      final String requestData = jsonEncode(refreshToken);
+      logInfo('The request data is $requestData');
+
+      final response = await DioClient.instance.dio.post(
+        url,
+        data: requestData,
+      );
+
+      logInfo('API response for refreshing token is completed');
+      return response;
+    } catch (e) {
+      if (e is DioError) {
+        logError('Error refreshing token: ${e.response?.statusCode} ${e.response?.data}');
+      } else {
+        logError('Unexpected error refreshing token: $e');
+      }
+      rethrow;
+    }
+  }
+
+      // Future<Response> tokenRefresh(Map<String,String> refreshToken)async{
+      //   logInfo('the access token is ${SharedPref.instance.getToken()} and refresh token is ${SharedPref.instance.getRefreshToken()}');
+      //   logInfo('api is calling for refreshing token');
+      //   final String url="${ApiUrls.baseUrl}${ApiUrls.refreshToken}";
+      //   logInfo(url);
+      //   final String requestData=jsonEncode(refreshToken);
+      //   logInfo('the request data is $requestData');
+      // final response=await DioClient.instance.dio.post(
+      //   ApiUrls.googleAuthentication,
+      //   data: jsonEncode(refreshToken),
+      // );
+       
+      // logInfo('api response for refreshing token is being completd');
+      // return response;
+      // }
+       
+
+       //to delete
+      // Future<Response> getEvents()async{
+      // final response=await DioClient.instance.dio.get(
+      //   ApiUrls.getEvents,
+      // );
+      // logInfo('${response.data}');
+      // return response;
+      // }
+  Future<Response> getEvents() async {
+    try {
+      logInfo('Fetching events from API...');
+      final response = await DioClient.instance.dio.get(
+        ApiUrls.getEvents,
+      );
+      logInfo('Events fetched successfully: ${response.data}');
+      return response;
+    } catch (e) {
+      if (e is DioError) {
+        logError('Error fetching events: ${e.response?.statusCode} ${e.response?.data}');
+      } else {
+        logError('Unexpected error fetching events: $e');
+      }
+      rethrow;
+    }
+  }
 
 }

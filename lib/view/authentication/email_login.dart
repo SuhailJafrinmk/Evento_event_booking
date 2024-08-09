@@ -6,7 +6,7 @@ import 'package:evento_event_booking/utils/app/validations.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/view/authentication/email_otp_verification.dart';
-import 'package:evento_event_booking/view/home_screen.dart';
+import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
