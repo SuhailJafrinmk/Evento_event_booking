@@ -4,10 +4,12 @@ part of 'authentication_bloc.dart';
 sealed class AuthenticationState {}
 final class AuthenticationInitial extends AuthenticationState {}
 
+//loading states of authenication bloc
 class RequestingEmailOtp extends AuthenticationState{}
 class RequestingMobileOtp extends AuthenticationState{}
 class RequestingGoogleToken extends AuthenticationState{}
 
+//
 class EmailOtpRequested extends AuthenticationState {}
 class MobileOtpRequested extends AuthenticationState{}
 class GoogleTokenRequested extends AuthenticationState{}

@@ -19,11 +19,13 @@ class EmailOtpVerification extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-      if(state is EmailOtpVerified){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-      }else if(state is EmailOtpNotVerified){
-        ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false,state.errorMessage));
-      }
+        if (state is EmailOtpVerified) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (state is EmailOtpNotVerified) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(customSnackbar(context, false, state.errorMessage));
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -49,8 +51,7 @@ class EmailOtpVerification extends StatelessWidget {
                           SizedBox(
                             height: size.height * 0.01,
                           ),
-                          Text(
-                              'Enter the six digit OTP send $email'),
+                          Text('Enter the six digit OTP send $email'),
                           SizedBox(
                             height: size.height * 0.01,
                           ),
@@ -60,7 +61,7 @@ class EmailOtpVerification extends StatelessWidget {
                               CountdownTimerWidget(),
                             ],
                           ),
-                            SizedBox(
+                          SizedBox(
                             height: size.height * 0.01,
                           ),
                           OtpTextField(
@@ -101,18 +102,19 @@ class EmailOtpVerification extends StatelessWidget {
                               }
                             },
                           ),
-                                       SizedBox(
+                          SizedBox(
                             height: size.height * .02,
                           ),
-                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              if(state is VerifyingEmailOtp){
-                                return  Row(
+                              if (state is VerifyingEmailOtp) {
+                                return Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                         
                                     Text('verfiying your otp'),
-                                    SizedBox(width: 10,),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
                                     CustomProgressIndicator(),
                                   ],
                                 );

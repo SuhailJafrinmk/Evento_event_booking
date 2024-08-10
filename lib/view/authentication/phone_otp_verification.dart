@@ -105,11 +105,12 @@ class phoneOtpVerification extends StatelessWidget {
                               }
                             },
                           ),
+                          SizedBox(height: size.height*0.01,),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if(state is VerfiyingMobileOtp){
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                return const Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('verfiying your otp'),
                                     CustomProgressIndicator(),

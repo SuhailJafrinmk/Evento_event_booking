@@ -22,7 +22,7 @@ class DioClient {
     ));
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-        String? accessToken = SharedPref.instance.getToken();
+        String? accessToken =  SharedPref.instance.getToken();
         if (accessToken != null) {
           logInfo('authorisatin token added to request header');
           options.headers['Authorization'] = 'Bearer $accessToken';

@@ -5,7 +5,6 @@ import 'package:evento_event_booking/data/shared_preferences/shared_preferences.
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/repositories/authentication_repo.dart';
 import 'package:meta/meta.dart';
-
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 

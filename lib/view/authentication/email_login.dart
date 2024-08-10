@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/app/validations.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
@@ -33,6 +33,7 @@ class _EmailLoginState extends State<EmailLogin> {
         }else if(state is EmailOtpRequested){
            Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailOtpVerification(email: emailController.text,)));
         }else if(state is ErrorSendingEmailOtp){
+          logError('error sending email otp : ${state.errorMessage}');
           ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, state.errorMessage));
         }
       },
@@ -94,6 +95,7 @@ class _EmailLoginState extends State<EmailLogin> {
                                
                                 ],
                               ),
+                            
                                  BlocBuilder<AuthenticationBloc, AuthenticationState>(
                                     builder: (context, state) {
                                       if(state is RequestingEmailOtp){
