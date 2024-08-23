@@ -1,4 +1,5 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/network/dio_configure.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
@@ -15,9 +16,15 @@ void main() {
       BlocProvider(
         create: (context) => AuthenticationBloc(),
       ),
+      BlocProvider(
+        create: (context) => EventBloc()
+        ..add(FetchEventLocations())
+      )
+ 
     ],
     child: const MyApp(),
-  ));
+  )
+  );
 }
 
 class MyApp extends StatelessWidget {

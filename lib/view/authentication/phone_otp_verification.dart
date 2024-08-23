@@ -4,6 +4,7 @@ import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
+import 'package:evento_event_booking/view/events/select_location.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/timer_widget.dart';
@@ -26,7 +27,7 @@ class phoneOtpVerification extends StatelessWidget {
           logError('listener is listenting to $state');
           ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, state.errorMessage));
         }else if(state is MobileNumberOtpVerified){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>LocationSelectionPage()));
         }
       },
       child: Scaffold(

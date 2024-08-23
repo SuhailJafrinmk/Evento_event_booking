@@ -2,6 +2,7 @@ import 'package:evento_event_booking/data/shared_preferences/shared_preferences.
 import 'package:evento_event_booking/resources/constants/rive_animation_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
+import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/view/on_boarding/onboarding_screen_one.dart';
 import 'package:evento_event_booking/widgets/zoom_in_text.dart';
 import 'package:flutter/foundation.dart';
@@ -25,7 +26,7 @@ void initState() {
     await Future.delayed(Duration(seconds: 4)); // Simulate a delay
     String? accessToken = SharedPref.instance.getToken();
     if (accessToken != null && accessToken.isNotEmpty) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNavigationWrapper()));
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OnBoardingPage()));
     }

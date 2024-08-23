@@ -10,6 +10,12 @@ class Appthemes{
   static final Color secondaryTextColor = Color(0xFFAAAAAA);
 
   static final ThemeData lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+      backgroundColor: backgroundColor,
+      iconTheme: IconThemeData(
+        color: Colors.white
+      )
+    ),
     primaryColor: primaryColor,
     backgroundColor: backgroundColor,
     scaffoldBackgroundColor: backgroundColor,

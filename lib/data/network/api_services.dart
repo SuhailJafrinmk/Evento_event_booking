@@ -45,6 +45,7 @@ class ApiServices{
         ApiUrls.phoneOtpVerification,
         data: jsonEncode(mobileAndOtp),
       );
+      logInfo('the raw data from verifymobileaotp is ${response}');
       return response;
       }
 
@@ -56,34 +57,6 @@ class ApiServices{
       );
       return response;
       }
-
-  //   Future<Response> tokenRefresh(Map<String, String> refreshToken) async {
-  //   logInfo('The access token is ${SharedPref.instance.getToken()} and refresh token is ${SharedPref.instance.getRefreshToken()}');
-  //   logInfo('API is calling for refreshing token');
-
-  //   try {
-  //     final String url = "${ApiUrls.baseUrl}${ApiUrls.refreshToken}";
-  //     logInfo('URL: $url');
-      
-  //     final String requestData = jsonEncode(refreshToken);
-  //     logInfo('The request data is $requestData');
-
-  //     final response = await DioClient.instance.dio.post(
-  //       url,
-  //       data: requestData,
-  //     );
-
-  //     logInfo('API response for refreshing token is completed');
-  //     return response;
-  //   } catch (e) {
-  //     if (e is DioError) {
-  //       logError('Error refreshing token: ${e.response?.statusCode} ${e.response?.data}');
-  //     } else {
-  //       logError('Unexpected error refreshing token: $e');
-  //     }
-  //     rethrow;
-  //   }
-  // }
 
         Future<Response> tokenRefresh(Map<String,String> refreshToken)async{
         logInfo('the access token is ${SharedPref.instance.getToken()} and refresh token is ${SharedPref.instance.getRefreshToken()}');
@@ -102,29 +75,45 @@ class ApiServices{
        
 
   
-        Future<Response> getEvents()async{
+        Future<Response> getAllEvents()async{
         final response=await DioClient.instance.dio.get(
         ApiUrls.getEvents,
         );
-        logInfo('${response.data}');
+        logInfo('the raw data from getting all events api:${response.data}');
         return response;
         }
-  // Future<Response> getEvents() async {
-  //   try {
-  //     logInfo('Fetching events from API...');
-  //     final response = await DioClient.instance.dio.get(
-  //       ApiUrls.getEvents,
-  //     );
-  //     logInfo('Events fetched successfully: ${response.data}');
-  //     return response;
-  //   } catch (e) {
-  //     if (e is DioError) {
-  //       logError('Error fetching events: ${e.response?.statusCode} ${e.response?.data}');
-  //     } else {
-  //       logError('Unexpected error fetching events: $e');
-  //     }
-  //     rethrow;
-  //   }
-  // }
+
+
+        Future<Response> getLocations()async{
+        final response=await DioClient.instance.dio.get(
+        ApiUrls.getLocations,
+        );
+        logInfo('raw data from getting event locations api:${response.data}');
+        return response;
+        }
+
+        Future<Response> getEventCategories()async{
+        final response=await DioClient.instance.dio.get(
+        ApiUrls.getEventCategories,
+        );
+        logInfo('the raw data for eventcategories is:$response');
+        return response;
+        }       
+
+        Future<Response> getTrendingEvents()async{
+        final response=await DioClient.instance.dio.get(
+        ApiUrls.getTrendingEvents,
+        );
+        logInfo('the raw data for trending events is:$response');
+        return response;
+        } 
+
+        Future<Response> getEventDetails()async{
+        final response=await DioClient.instance.dio.get(
+        ApiUrls.getTrendingEvents,
+        );
+        logInfo('the raw data for trending events is:$response');
+        return response;
+        }          
 
 }

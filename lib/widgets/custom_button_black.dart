@@ -9,6 +9,7 @@ class CustomButtonBlack extends StatefulWidget {
   final double? buttonRadius;
   final Color? textColor;
   final double? elevation;
+  final TextStyle? buttonTextStyle;
 
   CustomButtonBlack({
     super.key,
@@ -20,6 +21,7 @@ class CustomButtonBlack extends StatefulWidget {
     this.ontap,
     this.textColor,
     this.elevation,
+    this.buttonTextStyle,
   });
 
   @override
@@ -61,7 +63,7 @@ class _CustomButtonBlackState extends State<CustomButtonBlack> {
           child: Center(
             child: Text(
               widget.text,
-              style: TextStyle(
+              style: widget.buttonTextStyle ?? TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 color: widget.textColor ?? Colors.white,

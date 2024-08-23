@@ -11,7 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// This class handles the authentication-related API calls which are done in the ApiServices class.
 /// It returns an Either<Exception, dynamic>.
 class UserAuthenticationRepo {
-
+  
   /// Sends an OTP request to the provided email ID.
   /// 
   /// [userEmail] is a map containing the user's email.

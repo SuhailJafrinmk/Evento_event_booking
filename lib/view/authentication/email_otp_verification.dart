@@ -3,7 +3,9 @@ import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
+import 'package:evento_event_booking/view/events/select_location.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
+import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class EmailOtpVerification extends StatelessWidget {
       listener: (context, state) {
         if (state is EmailOtpVerified) {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+              context, MaterialPageRoute(builder: (context) => MainNavigationWrapper()));
         } else if (state is EmailOtpNotVerified) {
           ScaffoldMessenger.of(context)
               .showSnackBar(customSnackbar(context, false, state.errorMessage));

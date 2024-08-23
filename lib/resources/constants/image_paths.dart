@@ -6,3 +6,4 @@ class AssetImages{
   static const String googleImageIcon='assets/images/google_icon_image.png';
   static const String emailIconImage='assets/images/email_icon_image.png';
 }
+String placeholderImage='https://res.cloudinary.com/dccos4vab/image/upload/v1724157117/image-not-found-scaled-1150x647_dzdhuj.png';

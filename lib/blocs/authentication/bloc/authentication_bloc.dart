@@ -46,9 +46,14 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     logInfo('the response is ${response.right}');
     if (response.isRight) {
       final result = response.right.data;
+      logWarning('the response of verifying email otp is $result');
       if (result.containsKey('access_token')) {
         final String accessToken = result['access_token'];
         final String refreshToken=result['refresh_token'];
+        final user=result['user'];
+        final String userName=user['username'];
+        logInfo(userName);
+        SharedPref.instance.storeUserName(userName);
         SharedPref.instance.storeTokens(accessToken,refreshToken);
         logInfo('access token stored on email authentication is ${SharedPref.instance.getToken()}');
         logInfo('refresh token stored on email authentication is ${SharedPref.instance.getRefreshToken()}');
