@@ -62,7 +62,7 @@ class SelectAuthentication extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: textColor)
+                          border: Border.all(color: AppColors.textColor)
                         ),
                         child: Center(
                           child: Text('Continue with mobile number',style: montserratLarge.copyWith(fontSize: 20),),

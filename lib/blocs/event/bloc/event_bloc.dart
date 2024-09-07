@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
+import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/models/category_model.dart';
 import 'package:evento_event_booking/models/event_model.dart';
@@ -21,11 +22,14 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     eventCategories: [],
     trendingEvents: [],
     allEvents: [],
+    eventsAtLocation: []
   )) {
     on<FetchEventLocations>(fetchEventLocations);
     on<FetchEventCategories>(fetchEventCategories);
     on<FetchTrendingEvents>(fetchTrendingEvents);
     on<FetchAllEvents>(fetchAllEvents);
+    on<FetchEventByLocation>(fetchEventByLocation);
+    on<FetchEventDetails>(fetchEventDetails);
   }
 
   FutureOr<void> fetchEventLocations(FetchEventLocations event, Emitter<EventState> emit) async {
@@ -39,10 +43,11 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         ));
       },
       (right) {
-        List<String> locations = List<String>.from(right.data.map((e) => e['name'] as String));
+        final data=right.data as List<dynamic>;
+        List<EventLocations> eventLocation=data.map((e) => EventLocations.fromMap(e as Map<String,dynamic>)).toList();
         emit((state as EventStateLoaded).copyWith(
           isLoading: false,
-          eventLocations: locations,
+          eventLocations: eventLocation,
         ));
       },
     );
@@ -53,14 +58,12 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     final response = await EventsRepo.getEventCategories();
     response.fold(
       (left) {
-        logError('the error is ${left.errorMessage}');
         emit((state as EventStateLoaded).copyWith(
           isLoading: false,
           errorMessage: left.errorMessage,
         ));
       },
       (right) {
-        logError('the response of eventcategories is ${right.data}');
         final data=right.data as List<dynamic>;
         List<CategoryModel> categories =data.map((item) => CategoryModel.fromMap(item as Map<String,dynamic>)).toList();
         emit((state as EventStateLoaded).copyWith(
@@ -103,13 +106,40 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         ));
       },
       (right) {
-        List<EventModel> events = (right.data as List).map((e) => EventModel.fromJson(e)).toList();
+        final data=right.data['results'] as List<dynamic>;
+        List<EventModel> events = data.map((e) => EventModel.fromJson(e as Map<String,dynamic>),).toList();
         emit((state as EventStateLoaded).copyWith(
           isLoading: false,
           allEvents: events,
         ));
       },
     );
+  }
+
+  FutureOr<void> fetchEventByLocation(FetchEventByLocation event, Emitter<EventState> emit)async{
+    EventLocations? locations=SharedPref.instance.getUserLocation();
+    final response=await EventsRepo.getEventsByLocation(locations!.id);
+    response.fold((left){
+      
+    }, (right){
+      final data=right.data as List<dynamic>;
+      List<EventModel> eventsAtLocation=data.map((item) =>EventModel.fromJson(item as Map<String,dynamic>) ).toList();
+      emit((state as EventStateLoaded).copyWith(
+        isLoading: false,
+        eventsAtLocation: eventsAtLocation
+      ));
+    });
+  }
+
+  FutureOr<void> fetchEventDetails(FetchEventDetails event, Emitter<EventState> emit)async{
+    logInfo('in the bloc function for getting event details..............');
+    final response=await EventsRepo.getEventDetails(event.eventId);
+    response.fold((left) => emit(ErrorFetchingEventDetails(errorMessage: left.errorMessage)),
+     (right) {
+      final data=right.data as Map<String,dynamic>;
+      EventModel eventModel=EventModel.fromJson(data);
+      emit(EventDetailsLoaded(eventModel: eventModel));
+     });
   }
 }
 

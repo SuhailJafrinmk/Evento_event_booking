@@ -10,7 +10,7 @@ class CustomButtonBlack extends StatefulWidget {
   final Color? textColor;
   final double? elevation;
   final TextStyle? buttonTextStyle;
-
+  
   CustomButtonBlack({
     super.key,
     required this.text,

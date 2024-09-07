@@ -20,7 +20,7 @@ VoidCallback ? onTap;
         height: size.height*.08,
         width: size.width*.9,
         decoration: BoxDecoration(
-          color: textColor,
+          color: AppColors.textColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -28,7 +28,7 @@ VoidCallback ? onTap;
           children: [
             Image.asset(imagePath),
             SizedBox(width: 10,),
-            Text(socialText,style: montserratMedium.copyWith(color: backgroundColor,fontWeight: FontWeight.bold),),
+            Text(socialText,style: montserratMedium.copyWith(color: AppColors.backgroundColor,fontWeight: FontWeight.bold),),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 class EventModel {
+  final int id;
   final String event_name;
   final String start_date;
   final String end_date;
@@ -21,6 +22,7 @@ class EventModel {
   final String? organizer_profile_photo;
 
   EventModel({
+    required this.id,
     required this.event_name,
     required this.start_date,
     required this.end_date,
@@ -46,6 +48,7 @@ class EventModel {
   factory EventModel.fromJson(Map<String, dynamic> json) {
     try {
       return EventModel(
+        id: json['id'],
         event_name: _parseString(json, 'event_name'),
         start_date: _parseString(json, 'start_date'),
         end_date: _parseString(json, 'end_date'),

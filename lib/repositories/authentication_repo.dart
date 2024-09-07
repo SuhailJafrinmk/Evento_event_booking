@@ -80,7 +80,6 @@ class UserAuthenticationRepo {
         logError('the status code of mobile verification is ${response.statusCode}');
         return Left(appExceptions);
     } catch (e) {
-      logError('the status code of mobile verification is $e');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
@@ -119,21 +118,18 @@ class UserAuthenticationRepo {
 
   static Future<Either<AppExceptions, String>> verifyGoogleSignin(Map<String,String> token) async {
     try{
-      developer.log('function is now active at verifygooglesignin function inside authenticaiton repo');
-      developer.log('checking token before sending to backend $token');
       final response=await ApiServices.instance.verifyGoogleAccount(token);
       if(response.statusCode==201||response.statusCode==200){
         final String token=response.data['access_token'];
-        developer.log('function exited with a token from google');
         return Right(token);
       }else{
-        developer.log("${response.statusCode}");
         return Left(mapStatusCodeToException(response.statusCode));
       }
     }catch(e){
-      developer.log('function exited control with out a token from backend with error ${e.toString()}');
       return Left(AppExceptions(errorMessage: 'some error occured'));
     }
   }
+
+
 
 }

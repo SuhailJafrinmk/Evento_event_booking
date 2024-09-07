@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evento_event_booking/models/category_model.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
+import 'package:evento_event_booking/utils/cache_manager.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -33,11 +34,12 @@ class CategoriesList extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: ClipOval(
                       child: CachedNetworkImage(
+                        cacheManager: CustomCacheManager().cacheManager,
                         imageUrl: categories[index].image,
                         placeholder: (context, url) => CustomProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                        width: 40, // Adjust the width if needed
-                        height: 40, // Adjust the height if needed
+                        width: 40, 
+                        height: 40, 
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -47,6 +49,8 @@ class CategoriesList extends StatelessWidget {
                     child: Text(
                       categories[index].name,
                       style: bodyText2.copyWith(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                 ],

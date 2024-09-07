@@ -1,5 +1,6 @@
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
+import 'package:evento_event_booking/models/location_model.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
@@ -12,7 +13,7 @@ class LocationSelectionPage extends StatefulWidget {
 }
 
 class _LocationSelectionPageState extends State<LocationSelectionPage> {
-  String? selectedLocation;
+  EventLocations? selectedLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +46,18 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                   // Update the dropdown with the fetched locations
                   final locations = state.eventLocations;
 
-                  return DropdownButtonFormField<String>(
+                  return DropdownButtonFormField<EventLocations>(
                     dropdownColor: Colors.black,
                     style: montserratMedium,
                     value: selectedLocation,
                     hint: Text('Select a location'),
                     items: locations.map((e) {
-                      return DropdownMenuItem<String>(
+                      return DropdownMenuItem<EventLocations>(
                         value: e,
-                        child: Text(e),
+                        child: Text(e.name),
                       );
                     }).toList(),
-                    onChanged: (String? newValue) {
+                    onChanged: (EventLocations? newValue) {
                       setState(() {
                         selectedLocation = newValue;
                       });

@@ -66,7 +66,7 @@ class OnboardingScreen extends StatelessWidget {
             color: Colors.white.withOpacity(0.5),
             child: Column(
               children: [
-                Text(title,style: montserratLarge.copyWith(color: backgroundColor,fontWeight: FontWeight.bold),),
+                Text(title,style: montserratLarge.copyWith(color: AppColors.backgroundColor,fontWeight: FontWeight.bold),),
                 Text(description,style: montserratMedium.copyWith(color: Colors.black,fontWeight: FontWeight.w700),),
                 SizedBox(height: size.height*.15,),
                 CustomButtonBlack(text: 'Next',ontap: (){

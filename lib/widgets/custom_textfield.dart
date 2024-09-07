@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Color? focusedBorderColor;
   final String ? prefixText;
+  final ValueChanged<String> ? onChanged;
   CustomTextField({
     super.key,
     required this.hintText,
@@ -24,11 +25,13 @@ class CustomTextField extends StatelessWidget {
     this.errorBorder,
     this.suffixIcon,
     this.focusedBorderColor,
-    this.prefixText
+    this.prefixText,
+    this.onChanged,
   });
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       style: const TextStyle(
         color: Colors.black87,
         fontSize: 16,
@@ -59,7 +62,7 @@ class CustomTextField extends StatelessWidget {
           style: BorderStyle.solid,
         )),
         filled: true,
-        fillColor: Color(0xFFF6F5F0),
+        fillColor: const Color(0xFFF6F5F0),
         prefixIcon: Icon(prefixIcon, color: prefixIconColor ?? Colors.grey),
         hintText: hintText,
         hintStyle: TextStyle(color: prefixIconColor ?? Colors.grey),
@@ -67,7 +70,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+        contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
       ),
     );
   }

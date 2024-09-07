@@ -1,11 +1,12 @@
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
+import 'package:evento_event_booking/models/location_model.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
-import 'package:evento_event_booking/view/dummyscreen/dummy_screeen1.dart';
-import 'package:evento_event_booking/view/dummyscreen/dummy_screen2.dart';
-import 'package:evento_event_booking/view/dummyscreen/dummy_screen3.dart';
+import 'package:evento_event_booking/view/search_page/dummy_screeen1.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
+import 'package:evento_event_booking/view/search_page/dummy_screen2.dart';
+import 'package:evento_event_booking/view/search_page/dummy_screen3.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,26 +33,17 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
       _currentIndex = index;
     });
   }
-  @override
-  void initState() {
-    super.initState();
-        context.read<EventBloc>()
-      ..add(FetchEventCategories())
-      ..add(FetchTrendingEvents())
-      ..add(FetchAllEvents());
-  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final String name = SharedPref.instance.getUserName() ?? "Guest";
-    final String? userLocation = SharedPref.instance.getUserLocation() ?? 'Unavailable';
-
+    final EventLocations? userLocation = SharedPref.instance.getUserLocation();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
         centerTitle: true,
-        title: Text(userLocation ?? '', style: montserratMedium),
+        title: Text(userLocation?.name ?? 'Location', style: montserratMedium),
         actions: [
           CircleAvatar(
             radius: size.width * .05,
@@ -64,7 +56,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children:  [
-          HomePage(userName: name),    // Ensure these screens have their own content
+          HomePage(userName: name),    
           ExploreScreen(), 
           FavouritesScreen(), 
           ProfileScreen(),

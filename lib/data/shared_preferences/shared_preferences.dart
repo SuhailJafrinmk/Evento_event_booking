@@ -1,4 +1,5 @@
 import 'package:evento_event_booking/development_only/custom_logger.dart';
+import 'package:evento_event_booking/models/location_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref{
@@ -8,6 +9,7 @@ class SharedPref{
   static const String token='token';
   static const String refreshToken='refreshToken';
   static const String userLocation='userLocation';
+  static const String userLocationId='Locationid';
   static const String userName='userName';
 
   late SharedPreferences sharedPref;
@@ -37,16 +39,18 @@ class SharedPref{
   String ? getUserName(){
     return sharedPref.getString(userName);
   }
-  void storeUserLocation(String ? userPickedLocation)async{
-   if(userPickedLocation!=null){
-     await sharedPref.setString(userLocation,userPickedLocation); 
+  void storeUserLocation(EventLocations? locations)async{
+   if(locations!=null){
+     await sharedPref.setString(userLocation,locations.name);
+     await sharedPref.setInt(userLocationId, locations.id); 
    }
    logInfo('user location stored in shored prefrences');
   }
-  String ? getUserLocation(){
+  EventLocations ? getUserLocation(){
     String ? place=sharedPref.getString(userLocation);
-    if(place!=null){
-      return place;
+    int ? locationId=sharedPref.getInt(userLocationId);
+    if(locationId!=null &&place!=null){
+      return EventLocations(id: locationId, name: place);
     }
     return null;
   }
