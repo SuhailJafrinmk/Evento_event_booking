@@ -1,4 +1,5 @@
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ZoomInText extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ZoomInTextState extends State<ZoomInText> {
   }
   @override
   Widget build(BuildContext context) {
-    
+    final theme=Theme.of(context);
     return isVisible==true ? 
     TweenAnimationBuilder<double>(
       tween: Tween<double>(begin: 0, end: 1),
@@ -37,7 +38,7 @@ class _ZoomInTextState extends State<ZoomInText> {
           scale: value,
           child: Text(
             widget.text,
-            style: montserratLarge.copyWith(fontSize: 40),
+            style: theme.textTheme.displayLarge?.copyWith(fontSize:40),
           ),
         );
       },

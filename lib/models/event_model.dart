@@ -1,25 +1,27 @@
+import 'package:intl/intl.dart';
+
 class EventModel {
-  final int id;
-  final String event_name;
-  final String start_date;
-  final String end_date;
-  final String time;
-  final String? venue;
-  final String? location;
-  final String? event_img_1;
-  final String? event_img_2;
-  final String? event_img_3;
-  final String? about;
-  final String? instruction;
-  final String? termsAndConditions;
-  final String? vendor;
-  final String status;
-  final String? location_url;
-  final String? organizer_id;
-  final String? organizer_name;
-  final String? organizer_email;
-  final String? organizer_phone;
-  final String? organizer_profile_photo;
+  final  int id;
+  final  String  event_name;
+  final  String  start_date;
+  final  String  end_date;
+  final  String  time;
+  final  String? venue;
+  final  String? location;
+  final  String? event_img_1;
+  final  String? event_img_2;
+  final  String? event_img_3;
+  final  String? about;
+  final  String? instruction;
+  final  String? termsAndConditions;
+  final  String? vendor;
+  final  String  status;
+  final  String? location_url;
+  final  String? organizer_id;
+  final  String? organizer_name;
+  final  String? organizer_email;
+  final  String? organizer_phone;
+  final  String? organizer_profile_photo;
 
   EventModel({
     required this.id,
@@ -50,8 +52,8 @@ class EventModel {
       return EventModel(
         id: json['id'],
         event_name: _parseString(json, 'event_name'),
-        start_date: _parseString(json, 'start_date'),
-        end_date: _parseString(json, 'end_date'),
+        start_date: parseAndFormatDate(json, 'start_date'),
+        end_date: parseAndFormatDate(json, 'end_date'),
         time: _parseString(json, 'time'),
         venue: _parseNullableString(json, 'venue'),
         location: _parseNullableString(json, 'location'),
@@ -76,6 +78,17 @@ class EventModel {
       rethrow;
     }
   }
+
+static String parseAndFormatDate(Map<String, dynamic> json, String key) {
+  try {
+    final dateString = json[key] as String; // Extract the string value from the JSON
+    DateTime dateTime = DateTime.parse(dateString).toLocal(); // Parse the ISO 8601 date and convert to local time
+    return DateFormat('dd MMMM yyyy, hh:mm a').format(dateTime); // Format the DateTime
+  } catch (e) {
+    throw Exception("Error parsing date for key '$key': $e");
+  }
+}
+
 
   static String _parseString(Map<String, dynamic> json, String key) {
     try {

@@ -1,5 +1,6 @@
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/view/home/category_page.dart';
 import 'package:evento_event_booking/widgets/carousel_widget.dart';
 import 'package:evento_event_booking/widgets/categories.dart';
 import 'package:evento_event_booking/widgets/location_events.dart';
@@ -8,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 class HomePage extends StatefulWidget {
   final String userName;
-  HomePage({required this.userName});
+  final String userLocation;
+  HomePage({required this.userName,required this.userLocation});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,12 +29,13 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
     return Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hey ${widget.userName}\nGood afternoon', style: montserratLarge),
+            Text('Hey ${widget.userName}\nGood afternoon', style: theme.textTheme.displayLarge),
             const SizedBox(height: 20),
             BlocBuilder<EventBloc, EventState>(
               builder: (context, state) {
@@ -57,8 +60,10 @@ class _HomePageState extends State<HomePage> {
                            Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Categories',style: bodyText2.copyWith(fontSize: 20),),
-                              Text('See all',style: bodyText2.copyWith(fontSize: 16),),
+                              Text('Categories',style: theme.textTheme.headlineLarge,),
+                              TextButton(onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoryPage(categories: state.eventCategories)));
+                              }, child: Text('See all',style: theme.textTheme.headlineMedium,))
                             ],
                            ),
                            const SizedBox(height: 10,),
@@ -68,8 +73,8 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Trending Events',style: bodyText2.copyWith(fontSize: 20),),
-                              Text('See all',style: bodyText2.copyWith(fontSize: 16),),
+                              Text('Trending Events',style: theme.textTheme.headlineLarge,),
+                              Text('See all',style: theme.textTheme.headlineMedium,),
                             ],
                            ),
                            const SizedBox(height: 10,),
@@ -78,8 +83,8 @@ class _HomePageState extends State<HomePage> {
                             Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Events at Malappuram',style: bodyText2.copyWith(fontSize: 20),),
-                              Text('See all',style: bodyText2.copyWith(fontSize: 16),),
+                              Text('Events at ${widget.userLocation}',style: theme.textTheme.headlineLarge,),
+                              Text('See all',style: theme.textTheme.headlineMedium),
                             ],
                            ),
                            const SizedBox(height: 10,),

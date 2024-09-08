@@ -15,6 +15,7 @@ class SelectAuthentication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size=MediaQuery.of(context).size;
+    final theme=Theme.of(context);
     return Scaffold(
       body:SizedBox(
         height: size.height,
@@ -35,8 +36,8 @@ class SelectAuthentication extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: size.height*.1,),
-                           Text('Login to ',style: montserratMedium,),
-                      Text('Join your\nfavourite event',style: montserratLarge,)
+                           Text('Login to ',style: theme.textTheme.displayMedium,),
+                      Text('Join your\nfavourite event',style: theme.textTheme.displayLarge,)
                       ],
                      ),
                    ),
@@ -65,12 +66,12 @@ class SelectAuthentication extends StatelessWidget {
                           border: Border.all(color: AppColors.textColor)
                         ),
                         child: Center(
-                          child: Text('Continue with mobile number',style: montserratLarge.copyWith(fontSize: 20),),
+                          child: Text('Continue with mobile number',style: theme.textTheme.displayMedium,),
                         ),
                       ),
                     ),
                     // SizedBox(height: size.height*0.01,),
-                    Text('Or',style: montserratMedium,),
+                    Text('Or',style: theme.textTheme.displayMedium,),
                     LoginTypeContainer(imagePath: AssetImages.googleImageIcon,socialText: 'Login with Google',onTap: () {
                       BlocProvider.of<AuthenticationBloc>(context).add(GoogleSignInClicked());
                     },),

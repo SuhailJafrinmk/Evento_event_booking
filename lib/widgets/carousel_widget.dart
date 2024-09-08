@@ -4,6 +4,7 @@ import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/cache_manager.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
@@ -20,6 +21,7 @@ class EventCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
     return CarouselSlider(
       options: CarouselOptions(
         autoPlayAnimationDuration: Duration(milliseconds: 500),
@@ -54,8 +56,8 @@ class EventCarousel extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(image.event_name, style: bodyText2),
-                        Text(image.location ?? 'Not available', style: bodyText2),
+                        Text(image.event_name, style: theme.textTheme.headlineLarge),
+                        Text(image.location ?? 'Not available', style: theme.textTheme.headlineLarge),
                       ],
                     ),
                   ),
@@ -64,15 +66,14 @@ class EventCarousel extends StatelessWidget {
                     right: 10,
                     child: CustomButtonBlack(
                       ontap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen()));
-                        BlocProvider.of<EventBloc>(context).add(FetchEventDetails(eventId: image.id));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: image,)));
                       },
                       elevation: 20,
-                      color: Appthemes.primaryColor,
+                      color: AppColors.accentColor,
                       width: 70,
                       height: 30,
                       text: 'Book now',
-                      buttonTextStyle: button.copyWith(fontSize: 10),
+                      buttonTextStyle: theme.textTheme.labelLarge,
                     ),
                   ),
                 ],

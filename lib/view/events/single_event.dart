@@ -1,37 +1,42 @@
-import 'package:evento_event_booking/resources/constants/image_paths.dart';
+import 'package:evento_event_booking/development_only/custom_logger.dart';
+import 'package:evento_event_booking/models/event_model.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/widgets/custom_button_black.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
+import 'package:evento_event_booking/widgets/pill_shaped_container.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class EventDetailsScreen extends StatefulWidget {
-  @override
-  State<EventDetailsScreen> createState() => _EventDetailsScreenState();
-}
-
-class _EventDetailsScreenState extends State<EventDetailsScreen> {
+class EventDetailsScreen extends StatelessWidget {
+  final EventModel eventModel;
+  const EventDetailsScreen({super.key, required this.eventModel});
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
+    final date=eventModel.end_date.split(',');
+    final theme=Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(CupertinoIcons.back),
           onPressed: () {
-            // Handle back action
+            Navigator.pop(context);
           },
         ),
-        title: Text('Event details'),
-        centerTitle: true,
+        title:  Text('Event details',style: theme.textTheme.headlineLarge,),
+
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite_border),
+            icon: const Icon(Icons.favorite_border),
             onPressed: () {
-              // Handle favorite action
+              logInfo('the list is $date');
             },
           ),
           IconButton(
-            icon: Icon(Icons.share),
+            icon: const Icon(Icons.share),
             onPressed: () {
               // Handle share action
             },
@@ -45,15 +50,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
-              child: Image.network(
-                placeholderImage,
-                height: 180,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+             child: CustomCachedNetworkImage(
+              height: size.height*.2,
+              width: size.width,
+              imageUrl: eventModel.event_img_1),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Event title',
               style: TextStyle(
                 fontSize: 18,
@@ -61,33 +64,41 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               ),
             ),
             Text(
-              'Kirans wedding',
-              style: TextStyle(
+              eventModel.event_name,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               children: [
-                Icon(Icons.calendar_today, color: Colors.white),
-                SizedBox(width: 8),
-                Text(
-                  '9 August 2024',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                PillContainer(child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Icon(Icons.calendar_today, color: AppColors.categoryBackgroundColor),
+                     Text(
+                  date[0],
+                  style: theme.textTheme.labelLarge,
                 ),
-                SizedBox(width: 24),
-                Icon(Icons.access_time, color: Colors.white),
-                SizedBox(width: 8),
-                Text(
-                  '09:00 am',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  ],
+                )),
+                const SizedBox(width: 24),
+                PillContainer(child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Icon(Icons.access_time, color: AppColors.categoryBackgroundColor),
+                     Text(
+                  date[1],
+                  style: theme.textTheme.labelLarge,
                 ),
+                  ],
+                )),
               ],
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Event details',
               style: TextStyle(
                 fontSize: 18,
@@ -95,58 +106,44 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              'First marriage of kiran. All are invited to the aws auditorium chevayoor. Bring maximum people from your neighbourhood.',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+            const SizedBox(height: 8),
+            SizedBox(
+              height: size.height*.2,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Text(
+                  eventModel.about ?? 'no descriptions',
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
             ),
-            SizedBox(height: 16),
-            Wrap(
+            const SizedBox(height: 16),
+            const Wrap(
               spacing: 8,
               children: [
                 Chip(
                   label: Text('Cultural'),
                   backgroundColor: Colors.white12,
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.black),
                 ),
                 Chip(
                   label: Text('Eventeazz'),
                   backgroundColor: Colors.white12,
-                  labelStyle: TextStyle(color: Colors.white),
-                  avatar: Icon(Icons.add, color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.black),
+                  avatar: Icon(Icons.add, color: Colors.black),
                 ),
               ],
             ),
-            Spacer(),
-            Text(
+            const Spacer(),
+            const Text(
               'Total 120 people have booked this event',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Handle booking action
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                minimumSize: Size(double.infinity, 50),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Book now',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(Icons.arrow_forward),
-                ],
-              ),
-            ),
+            const SizedBox(height: 16),
+            CustomButtonBlack(
+              buttonTextStyle: theme.textTheme.labelLarge?.copyWith(fontSize: 17),
+              color: AppColors.accentColor,
+              text: 'Book now')
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/models/location_model.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/view/search_page/dummy_screeen1.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
@@ -36,6 +37,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
     final Size size = MediaQuery.of(context).size;
     final String name = SharedPref.instance.getUserName() ?? "Guest";
     final EventLocations? userLocation = SharedPref.instance.getUserLocation();
@@ -43,7 +45,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
       appBar: AppBar(
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
         centerTitle: true,
-        title: Text(userLocation?.name ?? 'Location', style: montserratMedium),
+        title: Text(userLocation?.name ?? 'Location', style: theme.textTheme.headlineLarge?.copyWith(color: AppColors.cardBackgroundColor) ),
         actions: [
           CircleAvatar(
             radius: size.width * .05,
@@ -56,7 +58,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children:  [
-          HomePage(userName: name),    
+          HomePage(userName: name,userLocation: userLocation?.name ?? 'Not available'),    
           ExploreScreen(), 
           FavouritesScreen(), 
           ProfileScreen(),
@@ -65,8 +67,8 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
       bottomNavigationBar: DotCurvedBottomNav(
         scrollController: _scrollController,
         hideOnScroll: true,
-        indicatorColor: Appthemes.primaryColor,
-        backgroundColor: Appthemes.bottomNavBarColor,
+        indicatorColor: AppColors.accentColor,
+        backgroundColor: AppColors.bottomNavBarColor,
         animationDuration: const Duration(milliseconds: 300),
         animationCurve: Curves.ease,
         selectedIndex: _currentIndex,
@@ -77,19 +79,19 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
         items: [
           Icon(
             Icons.home,
-            color: _currentIndex == 0 ? Appthemes.primaryColor : Colors.white,
+            color: _currentIndex == 0 ? AppColors.accentColor : Colors.white,
           ),
           Icon(
             Icons.search,
-            color: _currentIndex == 1 ? Appthemes.primaryColor : Colors.white,
+            color: _currentIndex == 1 ? AppColors.accentColor : Colors.white,
           ),
           Icon(
             Icons.favorite,
-            color: _currentIndex == 2 ? Appthemes.primaryColor : Colors.white,
+            color: _currentIndex == 2 ? AppColors.accentColor : Colors.white,
           ),
           Icon(
             Icons.person,
-            color: _currentIndex == 3 ? Appthemes.primaryColor : Colors.white,
+            color: _currentIndex == 3 ? AppColors.accentColor : Colors.white,
           ),
         ],
       ),

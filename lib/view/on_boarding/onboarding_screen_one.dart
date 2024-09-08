@@ -47,6 +47,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size=MediaQuery.of(context).size;
+    final theme=Theme.of(context);
     return Stack(
       children: [
         Container(
@@ -66,8 +67,8 @@ class OnboardingScreen extends StatelessWidget {
             color: Colors.white.withOpacity(0.5),
             child: Column(
               children: [
-                Text(title,style: montserratLarge.copyWith(color: AppColors.backgroundColor,fontWeight: FontWeight.bold),),
-                Text(description,style: montserratMedium.copyWith(color: Colors.black,fontWeight: FontWeight.w700),),
+                Text(title,style:theme.textTheme.displayLarge?.copyWith(color: AppColors.backgroundColor)),
+                Text(description,style: theme.textTheme.displayMedium?.copyWith(fontWeight: FontWeight.w500)),
                 SizedBox(height: size.height*.15,),
                 CustomButtonBlack(text: 'Next',ontap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectAuthentication()));

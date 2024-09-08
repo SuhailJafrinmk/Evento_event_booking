@@ -1,109 +1,104 @@
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/view/events/single_event.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 class LocationEvents extends StatelessWidget {
   final List<EventModel> eventModel;
   const LocationEvents({super.key, required this.eventModel});
 
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
+    
     return SizedBox(
-      height: 200,
+      height: 220,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: eventModel.length,
         itemBuilder: (context, index) {
           final EventModel item = eventModel[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              width: 200,
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: const EdgeInsets.all(5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 120,
-                    decoration: BoxDecoration(
+          final date=item.end_date.split(',');
+          return InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: item)));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white12,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.all(5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   Stack(
+                    children: [
+                       ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(eventModel[index].event_img_1 ?? placeholderImage),
-                        fit: BoxFit.cover,
-                      ),
+                      child: CustomCachedNetworkImage(
+                        imageUrl: item.event_img_1,
+                        height: 130,
+                        ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('10', style: TextStyle(color: Colors.white)),
-                                  Text('June', style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ShapeOfView(
+                          elevation: 20,
+                          shape: CutCornerShape(
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),topRight: Radius.circular(20))
+                          ),
+                          child: Container(
+                            height: 35,
+                            width: 70,
+                            color: AppColors.accentColor,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(date[0],overflow: TextOverflow.ellipsis, style: theme.textTheme.labelLarge?.copyWith(fontSize: 8),),
+                                Text(date[1],style: theme.textTheme.labelLarge),
+                              ],
                             ),
                           ),
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black,
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_rounded, color: Colors.red),
-                              padding: EdgeInsets.zero,
-                              iconSize: 16,
+                        ),
+                        IconButton(onPressed: (){}, icon: Icon(Icons.favorite_rounded,color: Colors.red,size: 30,))
+                      ],
+                    ),
+            
+                    ],
+                   ),
+                    SizedBox(
+                      height: 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.event_name,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.headlineMedium
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            item.about ?? 'Not available',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 60,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.event_name,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                  
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          item.about ?? 'Not available',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

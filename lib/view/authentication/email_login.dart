@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/app/validations.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
@@ -25,6 +26,7 @@ class _EmailLoginState extends State<EmailLogin> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final theme=Theme.of(context);
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         developer.log('state of email login page is $state');
@@ -55,7 +57,7 @@ class _EmailLoginState extends State<EmailLogin> {
                             children: [
                               Text(
                                 'Login',
-                                style: montserratLarge,
+                                style: theme.textTheme.displayLarge,
                               ),
                               Text('Please Login to your account'),
                               SizedBox(
@@ -89,8 +91,8 @@ class _EmailLoginState extends State<EmailLogin> {
                                     elevation: 20,
                                     width: size.width*.94,
                                     text: 'Sign in',
-                                    color: Appthemes.primaryColor,
-                                    textColor: Appthemes.backgroundColor,
+                                    color: AppColors.accentColor,
+                                    textColor: AppColors.textColor,
                                   ),
                                
                                 ],

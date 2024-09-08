@@ -12,6 +12,7 @@ VoidCallback ? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
     final Size size=MediaQuery.of(context).size;
     return InkWell(
       onTap: onTap,
@@ -28,7 +29,7 @@ VoidCallback ? onTap;
           children: [
             Image.asset(imagePath),
             SizedBox(width: 10,),
-            Text(socialText,style: montserratMedium.copyWith(color: AppColors.backgroundColor,fontWeight: FontWeight.bold),),
+            Text(socialText,style: theme.textTheme.displayMedium,),
           ],
         ),
       ),

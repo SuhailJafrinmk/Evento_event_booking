@@ -2,8 +2,10 @@ import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/cache_manager.dart';
+import 'package:evento_event_booking/view/events/single_event.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:flutter/material.dart';
 import 'package:evento_event_booking/models/event_model.dart';
@@ -16,6 +18,7 @@ class TrendingEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final theme=Theme.of(context);
     return SizedBox(
       height: 150,
       child: ListView.builder(
@@ -52,18 +55,21 @@ class TrendingEvents extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(event.event_name),
-                                Text(event.end_date),
+                                Text(event.event_name,style: theme.textTheme.headlineSmall,),
+                                Text(event.end_date,style: theme.textTheme.headlineSmall),
                               ],
                             ),
                           ),
                           CustomButtonBlack(
                             elevation: 20,
-                            color: Appthemes.primaryColor,
+                            color: AppColors.accentColor,
                             width: 70,
                             height: 30,
                             text: 'Book now',
-                            buttonTextStyle: button.copyWith(fontSize: 10),
+                            buttonTextStyle: theme.textTheme.labelLarge,
+                            ontap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: event)));
+                            },
                           ),
                         ],
                       ),

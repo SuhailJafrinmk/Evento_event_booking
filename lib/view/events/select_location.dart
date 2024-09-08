@@ -1,9 +1,9 @@
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/models/location_model.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
-import 'package:evento_event_booking/view/home/home_screen.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
+import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,9 +17,10 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme=Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Location', style: montserratMedium),
+        title: Text('Select Location', style: theme.textTheme.displayMedium),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,12 +33,12 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                 if (state is EventStateLoaded) {
                   // Show loading indicator while fetching data
                   if (state.isLoading && state.eventLocations.isEmpty) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   // Check if there are any errors
                   if (state.errorMessage != null) {
-                    return Text(
+                    return const Text(
                       'Failed to load locations. Please try again.',
                       style: TextStyle(color: Colors.red),
                     );
@@ -48,9 +49,9 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
 
                   return DropdownButtonFormField<EventLocations>(
                     dropdownColor: Colors.black,
-                    style: montserratMedium,
+                    style: theme.textTheme.displayMedium?.copyWith(color: AppColors.cardBackgroundColor),
                     value: selectedLocation,
-                    hint: Text('Select a location'),
+                    hint: Text('Select a location',style: theme.textTheme.displaySmall?.copyWith(color: AppColors.cardBackgroundColor),),
                     items: locations.map((e) {
                       return DropdownMenuItem<EventLocations>(
                         value: e,
@@ -65,14 +66,16 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                   );
                 } else {
                   // Show loading or an empty state if data is not yet loaded
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (selectedLocation != null) {
+            const SizedBox(height: 20),
+            CustomButtonBlack(
+              color: AppColors.accentColor,
+              text: 'Add Location',
+              ontap: () {
+                 if (selectedLocation != null) {
                   // Handle the submission logic here
                   print('Selected Location: $selectedLocation');
                   SharedPref.instance.storeUserLocation(selectedLocation);
@@ -80,12 +83,12 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                 } else {
                   // Show a message or handle the case where no location is selected
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Please select a location.')),
+                    const SnackBar(content: Text('Please select a location.')),
                   );
                 }
+              
               },
-              child: Text('Submit'),
-            ),
+              )
           ],
         ),
       ),

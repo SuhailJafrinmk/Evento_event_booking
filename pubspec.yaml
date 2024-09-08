@@ -52,6 +52,7 @@ dependencies:
   cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.1
   intl: ^0.19.0
+  shape_of_view_null_safe: ^2.0.0
 
 dev_dependencies:
   flutter_test:

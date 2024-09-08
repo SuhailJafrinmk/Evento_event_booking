@@ -43,7 +43,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     .add(FilterItemsEvent(query: query));
               },
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 10,),
             Expanded(child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is ItemLoadingState) {

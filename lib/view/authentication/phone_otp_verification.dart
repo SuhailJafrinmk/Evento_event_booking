@@ -1,6 +1,7 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
@@ -21,6 +22,7 @@ class phoneOtpVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final theme=Theme.of(context);
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if(state is MobileNumberOtpNotVerified){
@@ -49,7 +51,7 @@ class phoneOtpVerification extends StatelessWidget {
                         children: [
                           Text(
                             'Mobile number\nverification',
-                            style: montserratLarge,
+                            style: theme.textTheme.displayLarge,
                           ),
                           SizedBox(
                             height: size.height * 0.01,
@@ -90,7 +92,7 @@ class phoneOtpVerification extends StatelessWidget {
                           CustomButtonBlack(
                             text: 'verify',
                             color: Colors.cyan,
-                            textColor: Appthemes.backgroundColor,
+                            textColor: AppColors.backgroundColor,
                             width: size.width,
                             ontap: () {
                               if (otpCode.length == 6) {
