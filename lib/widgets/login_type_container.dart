@@ -29,7 +29,7 @@ VoidCallback ? onTap;
           children: [
             Image.asset(imagePath),
             SizedBox(width: 10,),
-            Text(socialText,style: theme.textTheme.displayMedium,),
+            Text(socialText,style: theme.textTheme.headlineLarge?.copyWith(color: AppColors.backgroundColor),),
           ],
         ),
       ),

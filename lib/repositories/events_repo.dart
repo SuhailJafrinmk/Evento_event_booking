@@ -12,6 +12,7 @@ class EventsRepo{
         return Right(response);
       } 
         AppExceptions appExceptions= mapStatusCodeToException(response.statusCode);
+        logInfo('the status code for getting eventlocations is ${response.statusCode}');
         return Left(appExceptions);
     } catch (e) {
       logError('the status code of getting event locations is ${e.toString()}');
@@ -26,6 +27,7 @@ class EventsRepo{
         return Right(response);
       }
       AppExceptions appExceptions=mapStatusCodeToException(response.statusCode);
+      logInfo('the status code for getting event categories is ${response.statusCode}');
       return Left(appExceptions);
     }catch(e){
       logError('the status code of getting event categories is ${e.toString()}');
@@ -40,9 +42,10 @@ class EventsRepo{
         return Right(response);
       }
       AppExceptions appExceptions=mapStatusCodeToException(response.statusCode);
+      logInfo('the status code of getting trending events is ${response.statusCode}');
       return Left(appExceptions);
     }catch(e){
-      logError('the status code of getting trending events is ${e.toString()}');
+      logError('the error while getting trending events is ${e.toString()}');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
@@ -69,8 +72,10 @@ class EventsRepo{
         return Right(response);
       } 
         AppExceptions appExceptions= mapStatusCodeToException(response.statusCode);
+        logInfo('the status code for getting event by locations is ${response.statusCode}');
         return Left(appExceptions);
     } catch (e) {
+      logError('the error while getting event by location is ${e.toString()}');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
@@ -87,13 +92,13 @@ class EventsRepo{
         logError('the status code of getting event details is ${response.statusCode}');
         return Left(appExceptions);
     } catch (e) {
-      logError('the status code of getting event details is $e');
+      logError('the status code of getting event details is ${e.toString()}');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
 
 
-        static EitherResponse getMoreEvents(String nextPageUrl) async {
+    static EitherResponse getMoreEvents(String nextPageUrl) async {
     try {
       final response = await ApiServices.instance.getMoreEvents(nextPageUrl);
       
@@ -101,10 +106,10 @@ class EventsRepo{
         return Right(response);
       } 
         AppExceptions appExceptions= mapStatusCodeToException(response.statusCode);
-        logError('the status code of getting event details is ${response.statusCode}');
+        logError('the status code of getting more events is ${response.statusCode}');
         return Left(appExceptions);
     } catch (e) {
-      logError('the status code of getting event details is $e');
+      logError('the error when getting more evnets is  ${e.toString()}');
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }

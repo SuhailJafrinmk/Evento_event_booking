@@ -4,6 +4,7 @@ import 'package:evento_event_booking/models/location_model.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
+import 'package:evento_event_booking/widgets/normal_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,9 +20,7 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
   Widget build(BuildContext context) {
     final theme=Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Select Location', style: theme.textTheme.displayMedium),
-      ),
+      appBar: CustomAppbar(title: 'Select location'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -74,6 +73,7 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
             CustomButtonBlack(
               color: AppColors.accentColor,
               text: 'Add Location',
+              textColor: AppColors.backgroundColor,
               ontap: () {
                  if (selectedLocation != null) {
                   // Handle the submission logic here

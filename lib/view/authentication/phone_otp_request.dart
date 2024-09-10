@@ -65,7 +65,7 @@ class _MobileOtpVerificationState extends State<MobileOtpRequesting> {
                             SizedBox(
                               height: size.width * .04,
                             ),
-                            Text('Enter your number to send an otp'),
+                            Text('Enter your number to send an otp',style: theme.textTheme.headlineLarge,),
                             SizedBox(
                               height: size.height * .02,
                             ),
@@ -97,7 +97,7 @@ class _MobileOtpVerificationState extends State<MobileOtpRequesting> {
                               width: size.width,
                               text: 'Send otp to verify',
                               color: AppColors.accentColor,
-                              textColor: AppColors.textColor,
+                              textColor: AppColors.backgroundColor,
                             ),
                                     BlocBuilder<AuthenticationBloc, AuthenticationState>(
                                     builder: (context, state) {

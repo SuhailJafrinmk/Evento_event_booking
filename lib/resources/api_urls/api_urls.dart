@@ -18,11 +18,13 @@ class ApiUrls{
   // static const String eventsByLocation='/events/by_location/{location_id}/';
   static const String getTrendingEvents='/events/trending-events/';
   static const String getWishlistedEvents='/events/wishlist/';
-  static const String addToWishlist='/events/wishlist/';
+  // static const String addToWishlist='/events/wishlist/';
   static String byLocation (int id){
     return '${ApiUrls.baseUrl}/events/by_location/$id/';
   }
   static String eventDetails(int id){
     return '${ApiUrls.baseUrl}/events/event_details/$id';
   }
+  static String addToWishlist(int id)=>'/events/wishlist/$id/';
+  static String removeFromWishlist(int id)=>'/events/wishlist/$id/';
 }

@@ -93,13 +93,6 @@ class ApiServices {
     return response;
   }
 
-  // Future<Response> getEventDetails()async{
-  // final response=await DioClient.instance.dio.get(
-  // ApiUrls.getTrendingEvents,
-  // );
-  // return response;
-  // }
-
   Future<Response> getEventByLocation(int id) async {
     final response = await DioClient.instance.dio.get(
       ApiUrls.byLocation(id),
@@ -114,11 +107,34 @@ class ApiServices {
     return response;
   }
 
-    Future<Response> getMoreEvents(String nextPageUrl) async {
-    String endPoint=nextPageUrl.split('.ink').last;
+  Future<Response> getMoreEvents(String nextPageUrl) async {
+    String endPoint = nextPageUrl.split('.ink').last;
     final response = await DioClient.instance.dio.get(endPoint);
     logInfo('the raw data for getevent details is:$response');
     return response;
   }
 
+  Future<Response> addToFavourites(int id) async {
+    final response = await DioClient.instance.dio.post(
+      ApiUrls.addToWishlist(id),
+    );
+    logInfo('the response for adding to favourites is:$response');
+    return response;
+  }
+
+  Future<Response> getAllFavourites() async {
+    final response = await DioClient.instance.dio.get(
+      ApiUrls.getWishlistedEvents
+    );
+    logInfo('the response for getting all favourites is:$response');
+    return response;
+  }
+
+  Future<Response> deleteFromFavourites(int id) async {
+    final response = await DioClient.instance.dio.delete(
+      ApiUrls.removeFromWishlist(id),
+    );
+    logInfo('the response for getting all favourites is:$response');
+    return response;
+  }
 }

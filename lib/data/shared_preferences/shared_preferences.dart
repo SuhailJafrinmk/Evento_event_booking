@@ -27,6 +27,9 @@ class SharedPref{
   String ? getToken(){
     return sharedPref.getString(token);
   }
+  void storeAccessToken(String accessToken)async{
+    await sharedPref.setString(token, accessToken);
+  }
   void storeRefreshToken(String refresh)async{
     await sharedPref.setString(refreshToken, refresh);
   }

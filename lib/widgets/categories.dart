@@ -5,6 +5,7 @@ import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/cache_manager.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -21,6 +22,7 @@ class CategoriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
+          final item=categories[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Container(
@@ -35,15 +37,11 @@ class CategoriesList extends StatelessWidget {
                   Align(
                     alignment: Alignment.topCenter,
                     child: ClipOval(
-                      child: CachedNetworkImage(
-                        cacheManager: CustomCacheManager().cacheManager,
-                        imageUrl: categories[index].image,
-                        placeholder: (context, url) => CustomProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        width: 40, 
-                        height: 40, 
-                        fit: BoxFit.cover,
-                      ),
+                      child: CustomCachedNetworkImage(
+                        width: 40,
+                        height: 40,
+                        imageUrl: item.image
+                        ),
                     ),
                   ),
                   Align(

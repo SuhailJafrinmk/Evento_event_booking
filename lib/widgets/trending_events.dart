@@ -7,6 +7,7 @@ import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/cache_manager.dart';
 import 'package:evento_event_booking/view/events/single_event.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -26,6 +27,7 @@ class TrendingEvents extends StatelessWidget {
         itemCount: trendingEvents.length,
         itemBuilder: (context, index) {
           final event = trendingEvents[index];
+          logInfo('image link is ${event.event_img_1}');
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Container(
@@ -82,21 +84,7 @@ class TrendingEvents extends StatelessWidget {
                         topRight: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: '${ApiUrls.baseUrl}${trendingEvents[index].event_img_1}' ?? placeholderImage,
-                        placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          placeholderImage,
-                          fit: BoxFit.cover,
-                        ),
-                        cacheManager: CustomCacheManager().cacheManager,
-                      fadeInDuration: Duration(milliseconds: 100),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                      ),
+                      child: CustomCachedNetworkImage(imageUrl: '${ApiUrls.baseUrl}${event.event_img_1}')
                     ),
                   ),
                 ],

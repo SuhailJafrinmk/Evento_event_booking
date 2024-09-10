@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/repositories/events_repo.dart';
 import 'package:meta/meta.dart';
-
 part 'search_event.dart';
 part 'search_state.dart';
 
@@ -21,12 +19,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> fetchAllItemsEvent(
-      FetchAllItemsEvent event, Emitter<SearchState> emit) async {
+    FetchAllItemsEvent event, Emitter<SearchState> emit) async {
     logInfo('the event handler is in fetchallitems');
+    _allItems.clear();
     emit(ItemLoadingState());
     final rawData = await EventsRepo.getAllEvents();
     rawData
-        .fold((left) => emit(ItemErrorState(errorMessage: left.errorMessage)),
+    .fold((left) => emit(ItemErrorState(errorMessage: left.errorMessage)),
             (right) {
       nextPageUrl = right.data['next'];
       logInfo('next page url is stored in bloc $nextPageUrl');

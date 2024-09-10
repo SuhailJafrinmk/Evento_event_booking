@@ -34,7 +34,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            CustomTextField(
+            CustomTextField(             
               hintText: 'Search for an event',
               textEditingController: textEditingController,
               prefixIcon: Icons.search,
@@ -47,14 +47,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
             Expanded(child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is ItemLoadingState) {
-                  return Center(
+                  return const Center(
                     child: CustomProgressIndicator(),
                   );
                 } else if (state is ItemErrorState) {
                   return Center(child: Text(state.errorMessage));
                 } else if (state is ItemLoadedState) {
                   if (state.filteredItems.isEmpty) {
-                    return Center(child: Text('No items found'));
+                    return const Center(child: Text('No items found'));
                   }
                   return ListView.builder(
                     controller: scrollController,
@@ -65,7 +65,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     },
                   );
                 }
-                return SizedBox();
+                return const SizedBox();
               },
             )),
           ],

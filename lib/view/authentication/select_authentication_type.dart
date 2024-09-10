@@ -36,7 +36,7 @@ class SelectAuthentication extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: size.height*.1,),
-                           Text('Login to ',style: theme.textTheme.displayMedium,),
+                           Text('Login to ',style: theme.textTheme.headlineLarge,),
                       Text('Join your\nfavourite event',style: theme.textTheme.displayLarge,)
                       ],
                      ),
@@ -66,12 +66,12 @@ class SelectAuthentication extends StatelessWidget {
                           border: Border.all(color: AppColors.textColor)
                         ),
                         child: Center(
-                          child: Text('Continue with mobile number',style: theme.textTheme.displayMedium,),
+                          child: Text('Continue with mobile number',style: theme.textTheme.headlineLarge,)
                         ),
                       ),
                     ),
                     // SizedBox(height: size.height*0.01,),
-                    Text('Or',style: theme.textTheme.displayMedium,),
+                    Text('Or',style: theme.textTheme.headlineLarge,),
                     LoginTypeContainer(imagePath: AssetImages.googleImageIcon,socialText: 'Login with Google',onTap: () {
                       BlocProvider.of<AuthenticationBloc>(context).add(GoogleSignInClicked());
                     },),

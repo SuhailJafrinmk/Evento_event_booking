@@ -59,7 +59,7 @@ class _EmailLoginState extends State<EmailLogin> {
                                 'Login',
                                 style: theme.textTheme.displayLarge,
                               ),
-                              Text('Please Login to your account'),
+                              Text('Please Login to your account',style: theme.textTheme.headlineMedium,),
                               SizedBox(
                                 height: size.height * .02,
                               ),

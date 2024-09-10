@@ -57,7 +57,7 @@ class phoneOtpVerification extends StatelessWidget {
                             height: size.height * 0.01,
                           ),
                            Text(
-                              'Enter the six digit OTP send to +91 ${phoneNumber}'),
+                              'Enter the six digit OTP send to +91 ${phoneNumber}',style: theme.textTheme.headlineMedium?.copyWith(color: AppColors.cardBackgroundColor),),
                           SizedBox(
                             height: size.height * 0.01,
                           ),
@@ -112,10 +112,10 @@ class phoneOtpVerification extends StatelessWidget {
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if(state is VerfiyingMobileOtp){
-                                return const Row(
+                                return  Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('verfiying your otp'),
+                                    Text('verfiying your otp',style: theme.textTheme.headlineMedium?.copyWith(color: AppColors.textColor),),
                                     CustomProgressIndicator(),
                                   ],
                                 );

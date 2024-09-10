@@ -8,6 +8,7 @@ import 'package:evento_event_booking/view/events/select_location.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
+import 'package:evento_event_booking/widgets/normal_appbar.dart';
 import 'package:evento_event_booking/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +56,7 @@ class EmailOtpVerification extends StatelessWidget {
                           SizedBox(
                             height: size.height * 0.01,
                           ),
-                          Text('Enter the six digit OTP send $email'),
+                          Text('Enter the six digit OTP send to $email',style: theme.textTheme.headlineMedium,),
                           SizedBox(
                             height: size.height * 0.01,
                           ),

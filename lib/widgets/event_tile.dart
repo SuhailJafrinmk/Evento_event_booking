@@ -1,4 +1,6 @@
 import 'package:evento_event_booking/models/event_model.dart';
+import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
+import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/events/single_event.dart';
 import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
@@ -12,6 +14,9 @@ const EventTile({super.key, required this.eventModel});
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
+    String imageUrl = eventModel.event_img_1!.contains(ApiUrls.baseUrl)
+        ? eventModel.event_img_1 ?? placeholderImage
+        : '${ApiUrls.baseUrl}${eventModel.event_img_1}';
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: eventModel,)));
@@ -39,7 +44,7 @@ const EventTile({super.key, required this.eventModel});
                     child: CustomCachedNetworkImage(
                       height: screenWidth*0.25,
                       width: screenWidth*.25,
-                      imageUrl: eventModel.event_img_1),
+                      imageUrl: imageUrl),
                   ),
                   const SizedBox(width: 12.0),
                   Expanded(

@@ -68,10 +68,11 @@ class OnboardingScreen extends StatelessWidget {
             child: Column(
               children: [
                 Text(title,style:theme.textTheme.displayLarge?.copyWith(color: AppColors.backgroundColor)),
-                Text(description,style: theme.textTheme.displayMedium?.copyWith(fontWeight: FontWeight.w500)),
+                SizedBox(height: 10,),
+                Text(description,style: theme.textTheme.headlineLarge?.copyWith(color: AppColors.backgroundColor)),
                 SizedBox(height: size.height*.15,),
                 CustomButtonBlack(text: 'Next',ontap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectAuthentication()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelectAuthentication()));
                 },),
               ],
             ),

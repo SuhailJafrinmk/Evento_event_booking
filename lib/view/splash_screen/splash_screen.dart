@@ -1,6 +1,7 @@
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/resources/constants/rive_animation_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/view/authentication/session_expired_screen.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/view/on_boarding/onboarding_screen_one.dart';
@@ -25,10 +26,14 @@ void initState() {
     Future<void> _checkAccessToken() async {
     await Future.delayed(Duration(seconds: 4)); // Simulate a delay
     String? accessToken = SharedPref.instance.getToken();
+    String?refreshToken=SharedPref.instance.getRefreshToken();
     if (accessToken != null && accessToken.isNotEmpty) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNavigationWrapper()));
-    } else {
+    }else if(accessToken==null){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OnBoardingPage()));
+    }
+     else if (refreshToken ==null){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SessionExpiredScreen()));
     }
   }
   @override
@@ -46,7 +51,6 @@ void initState() {
             Align(
               alignment: Alignment.center,
               child: RiveAnimation.asset(
-                
                 RiveAnimationPaths.splashScreenAnimation
                 ),
             ),
