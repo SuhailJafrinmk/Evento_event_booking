@@ -1,27 +1,71 @@
 import 'package:intl/intl.dart';
+import 'package:hive/hive.dart';
+part 'event_model.g.dart'; // Hive generates this part file
 
-class EventModel {
-  final  int id;
-  final  String  event_name;
-  final  String  start_date;
-  final  String  end_date;
-  final  String  time;
-  final  String? venue;
-  final  String? location;
-  final  String? event_img_1;
-  final  String? event_img_2;
-  final  String? event_img_3;
-  final  String? about;
-  final  String? instruction;
-  final  String? termsAndConditions;
-  final  String? vendor;
-  final  String  status;
-  final  String? location_url;
-  final  String? organizer_id;
-  final  String? organizer_name;
-  final  String? organizer_email;
-  final  String? organizer_phone;
-  final  String? organizer_profile_photo;
+@HiveType(typeId: 1) // Assign a unique typeId for this class
+class EventModel extends HiveObject {
+  @HiveField(0)
+  final int id;
+
+  @HiveField(1)
+  final String event_name;
+
+  @HiveField(2)
+  final String start_date;
+
+  @HiveField(3)
+  final String end_date;
+
+  @HiveField(4)
+  final String time;
+
+  @HiveField(5)
+  final String? venue;
+
+  @HiveField(6)
+  final String? location;
+
+  @HiveField(7)
+  final String? event_img_1;
+
+  @HiveField(8)
+  final String? event_img_2;
+
+  @HiveField(9)
+  final String? event_img_3;
+
+  @HiveField(10)
+  final String? about;
+
+  @HiveField(11)
+  final String? instruction;
+
+  @HiveField(12)
+  final String? termsAndConditions;
+
+  @HiveField(13)
+  final String? vendor;
+
+  @HiveField(14)
+  final String status;
+
+  @HiveField(15)
+  final String? location_url;
+
+  @HiveField(16)
+  final String? organizer_id;
+
+  @HiveField(17)
+  final String? organizer_name;
+
+  @HiveField(18)
+  final String? organizer_email;
+
+  @HiveField(19)
+  final String? organizer_phone;
+
+  @HiveField(20)
+  final String? organizer_profile_photo;
 
   EventModel({
     required this.id,
@@ -108,34 +152,42 @@ static String parseAndFormatDate(Map<String, dynamic> json, String key) {
 }
 
 
-// class TicketType {
-//   final String id;
-//   final String type_name;
-//   final String? ticket_image;
-//   final String price;
-//   final int count;
-//   final String sold_count;
-//   final int event;
+class TicketType {
+  final int id;
+  final String typeName;
+  final String price;
+  final int count;
+  final int soldCount;
+  final String? ticketImage;
 
-//   TicketType({
-//     required this.id,
-//     required this.type_name,
-//     this.ticket_image,
-//     required this.price,
-//     required this.count,
-//     required this.sold_count,
-//     required this.event,
-//   });
+  TicketType({
+    required this.id,
+    required this.typeName,
+    required this.price,
+    required this.count,
+    required this.soldCount,
+    this.ticketImage,
+  });
 
-//   factory TicketType.fromJson(Map<String, dynamic> json) {
-//     return TicketType(
-//       id: json['id'],
-//       type_name: json['type_name'],
-//       ticket_image: json['ticket_image'],
-//       price: json['price'],
-//       count: json['count'],
-//       sold_count: json['sold_count'],
-//       event: json['event'],
-//     );
-//   }
-// }
+  factory TicketType.fromMap(Map<String, dynamic> map) {
+    return TicketType(
+      id: map['id'],
+      typeName: map['type_name'],
+      price: map['price'],
+      count: map['count'],
+      soldCount: map['sold_count'],
+      ticketImage: map['ticket_image'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'type_name': typeName,
+      'price': price,
+      'count': count,
+      'sold_count': soldCount,
+      'ticket_image': ticketImage,
+    };
+  }
+}

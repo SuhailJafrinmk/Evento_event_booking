@@ -2,31 +2,6 @@ part of 'event_bloc.dart';
 
 @immutable
 sealed class EventState {}
-
-// final class EventInitial extends EventState {}
-// class FetchingEventLocations extends EventState{}
-// class FetchedEventLocations extends EventState{
-//   final List<String> userlocaions;
-//   FetchedEventLocations({required this.userlocaions});
-// }
-// class ErrorFetchingEventLocations extends EventState{
-//   final String message;
-//   ErrorFetchingEventLocations({required this.message});
-// }
-// class FetchingEventCategories extends EventState{}
-// class FetchedEventCategories extends EventState{}
-// class ErrorFetchingCategories extends EventState{
-//   final String message;
-//   ErrorFetchingCategories({required this.message});
-// }
-
-// class FetchingTrendingEvents extends EventState{}
-// class FetchedTrendingEvents extends EventState{}
-// class ErrorFetchingTrendingEvents extends EventState{} 
-
-// class FetchingAllEvents extends EventState{}
-// class FetchedAllEvents extends EventState{}
-// class ErrorFetchingAllEvents extends EventState{}
 class EventStateLoaded extends EventState {
   final List<EventLocations> eventLocations;
   final List<CategoryModel> eventCategories;

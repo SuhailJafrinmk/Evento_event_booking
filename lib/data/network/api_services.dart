@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:developer' as developer;
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:evento_event_booking/data/network/dio_configure.dart';
-import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
 import 'package:evento_event_booking/utils/app_exceptions.dart';

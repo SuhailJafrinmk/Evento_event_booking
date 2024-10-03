@@ -1,10 +1,8 @@
 import 'package:either_dart/either.dart';
 import 'package:evento_event_booking/data/network/api_services.dart';
-import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/utils/app_exceptions.dart';
 import 'package:evento_event_booking/utils/identify_exception.dart';
-import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -95,7 +93,6 @@ class UserAuthenticationRepo {
       'openid',
     ],
     serverClientId: '942163140324-tr1r3eu2rtaonipfb09mc9jnmfillb1o.apps.googleusercontent.com',
-    
     );
     try {
       final GoogleSignInAccount? account = await googleSignIn.signIn();

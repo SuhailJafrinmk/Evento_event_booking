@@ -1,9 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:either_dart/either.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/models/category_model.dart';
@@ -13,7 +9,6 @@ import 'package:evento_event_booking/repositories/events_repo.dart';
 import 'package:meta/meta.dart';
 part 'event_event.dart';
 part 'event_state.dart';
-
 // event_bloc.dart
 
 class EventBloc extends Bloc<EventEvent, EventState> {

@@ -107,7 +107,7 @@ class DioClient {
   static final DioClient dioClient = DioClient._();
   static DioClient get instance => dioClient;
   late Dio dio;
-
+  
   void initialize() {
     dio = Dio(BaseOptions(
       baseUrl: ApiUrls.baseUrl,

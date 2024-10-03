@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hey ${widget.userName}\nGood afternoon', style: theme.textTheme.displayLarge),
+            Text('Hey ${widget.userName}\n${getWish(DateTime.now())}', style: theme.textTheme.displayLarge),
             const SizedBox(height: 20),
             BlocBuilder<EventBloc, EventState>(
               builder: (context, state) {
@@ -100,5 +100,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       );
+  }
+}
+
+String getWish(DateTime dateTime) {
+  final hour = dateTime.hour;
+  if (hour >= 5 && hour < 12) {
+    return "Good morning!";
+  } else if (hour >= 12 && hour < 17) {
+    return "Good afternoon!";
+  } else {
+    return "Good evening!";
   }
 }

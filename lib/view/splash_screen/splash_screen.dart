@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/resources/constants/rive_animation_paths.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';

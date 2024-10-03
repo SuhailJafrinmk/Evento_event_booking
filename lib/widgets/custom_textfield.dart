@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -44,9 +45,10 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         prefixText: prefixText ?? '',
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
           width: 2,
-          color: focusedBorderColor ?? Colors.purple,
+          color: focusedBorderColor ?? AppColors.accentColor,
           style: BorderStyle.solid,
         )),
         focusedErrorBorder: OutlineInputBorder(

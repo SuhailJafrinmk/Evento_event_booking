@@ -1,16 +1,14 @@
-import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/models/location_model.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
-import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/view/search_page/explore_screen.dart';
 import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/search_page/favourite_screen.dart';
 import 'package:evento_event_booking/view/search_page/dummy_screen3.dart';
+import 'package:evento_event_booking/widgets/animated_border.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainNavigationWrapper extends StatefulWidget {
   @override
@@ -43,14 +41,11 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
     final EventLocations? userLocation = SharedPref.instance.getUserLocation();
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
         centerTitle: true,
-        title: Text(userLocation?.name ?? 'Location', style: theme.textTheme.headlineLarge?.copyWith(color: AppColors.cardBackgroundColor) ),
+        title: Text(userLocation?.name ?? 'Location', style: theme.textTheme.displayMedium?.copyWith(color: AppColors.cardBackgroundColor) ),
         actions: [
-          CircleAvatar(
-            radius: size.width * .05,
-            backgroundColor: Colors.white,
-          ),
+          AnimatedBorderContainer(radius: 30, child: CircleAvatar(backgroundImage: AssetImage(AssetImages.profileAvatar),)),
           SizedBox(width: size.width * .05),
         ],
       ),

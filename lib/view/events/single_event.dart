@@ -51,7 +51,7 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                 onPressed: () {
                   BlocProvider.of<FavouritesBloc>(context)
-                      .add(AddToFavouritesEvent(eventId: eventModel.id));
+                      .add(AddToFavouritesEvent(eventModel: eventModel));
                 },
               );
             },
