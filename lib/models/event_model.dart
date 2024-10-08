@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/models/ticket_model.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
 part 'event_model.g.dart'; // Hive generates this part file
@@ -67,6 +68,9 @@ class EventModel extends HiveObject {
   @HiveField(20)
   final String? organizer_profile_photo;
 
+  @HiveField(21)
+  final List<TicketType> ? ticket_types;
+
   EventModel({
     required this.id,
     required this.event_name,
@@ -89,6 +93,7 @@ class EventModel extends HiveObject {
     this.organizer_email,
     this.organizer_phone,
     this.organizer_profile_photo,
+    this.ticket_types,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -115,6 +120,7 @@ class EventModel extends HiveObject {
         organizer_email: _parseNullableString(json, 'organizer_email'),
         organizer_phone: _parseNullableString(json, 'organizer_phone'),
         organizer_profile_photo: _parseNullableString(json, 'organizer_profile_photo'),
+        ticket_types: (json['ticket_types'] as List<dynamic>?)?.map((item)=>TicketType.fromMap(item as Map<String,dynamic>)).toList(),
       );
     } catch (e, stacktrace) {
       print("Error parsing EventModel: $e");
@@ -151,43 +157,3 @@ static String parseAndFormatDate(Map<String, dynamic> json, String key) {
   }
 }
 
-
-class TicketType {
-  final int id;
-  final String typeName;
-  final String price;
-  final int count;
-  final int soldCount;
-  final String? ticketImage;
-
-  TicketType({
-    required this.id,
-    required this.typeName,
-    required this.price,
-    required this.count,
-    required this.soldCount,
-    this.ticketImage,
-  });
-
-  factory TicketType.fromMap(Map<String, dynamic> map) {
-    return TicketType(
-      id: map['id'],
-      typeName: map['type_name'],
-      price: map['price'],
-      count: map['count'],
-      soldCount: map['sold_count'],
-      ticketImage: map['ticket_image'],
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'type_name': typeName,
-      'price': price,
-      'count': count,
-      'sold_count': soldCount,
-      'ticket_image': ticketImage,
-    };
-  }
-}

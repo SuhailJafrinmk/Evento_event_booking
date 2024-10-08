@@ -135,4 +135,16 @@ class ApiServices {
     logInfo('the response for getting all favourites is:$response');
     return response;
   }
+
+  Future<Response> bookMyTicket(int id,int ticketCount)async{
+    final Map<String,dynamic> queryParameters={'ticket_id':id};
+    final Map<String,dynamic> data={"ticket_count":ticketCount};
+    final response=await DioClient.instance.dio.post(
+      "/events/ticket/booking/$id",
+      // ApiUrls.bookATicket,
+      // queryParameters: queryParameters,
+      data: jsonEncode(data),
+    );
+    return response;
+  }
 }

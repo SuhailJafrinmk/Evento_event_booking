@@ -38,13 +38,14 @@ class EventModelAdapter extends TypeAdapter<EventModel> {
       organizer_email: fields[18] as String?,
       organizer_phone: fields[19] as String?,
       organizer_profile_photo: fields[20] as String?,
+      ticket_types: (fields[21] as List?)?.cast<TicketType>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, EventModel obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(22)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -86,7 +87,9 @@ class EventModelAdapter extends TypeAdapter<EventModel> {
       ..writeByte(19)
       ..write(obj.organizer_phone)
       ..writeByte(20)
-      ..write(obj.organizer_profile_photo);
+      ..write(obj.organizer_profile_photo)
+      ..writeByte(21)
+      ..write(obj.ticket_types);
   }
 
   @override

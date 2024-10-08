@@ -55,6 +55,7 @@ dependencies:
   shape_of_view_null_safe: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  share_plus: ^10.0.2
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,7 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/rive/
+    - assets/screenshots/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

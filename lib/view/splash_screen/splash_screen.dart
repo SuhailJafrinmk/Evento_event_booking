@@ -1,23 +1,17 @@
-import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/resources/constants/rive_animation_paths.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/view/authentication/session_expired_screen.dart';
-import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/view/on_boarding/onboarding_screen_one.dart';
 import 'package:evento_event_booking/widgets/zoom_in_text.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-
 class _SplashScreenState extends State<SplashScreen> {
   @override
 void initState() {

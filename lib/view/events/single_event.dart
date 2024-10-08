@@ -1,9 +1,11 @@
 import 'package:evento_event_booking/blocs/favourites/bloc/favourites_bloc.dart';
-import 'package:evento_event_booking/development_only/custom_logger.dart';
+import 'package:evento_event_booking/blocs/share/share_bloc.dart';
+import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/view/ticket_booking/pick_ticket_page.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:evento_event_booking/widgets/pill_shaped_container.dart';
@@ -22,6 +24,7 @@ class EventDetailsScreen extends StatelessWidget {
     String imageUrl = eventModel.event_img_1!.contains(ApiUrls.baseUrl)
         ? eventModel.event_img_1 ?? placeholderImage
         : '${ApiUrls.baseUrl}${eventModel.event_img_1}';
+    List<EventModel> favourites=HiveHelper().getFavourites();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -59,8 +62,9 @@ class EventDetailsScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-              logInfo(
-                  'the converted image url is $imageUrl and the unfiltered url is ${eventModel.event_img_1}');
+              BlocProvider.of<ShareBloc>(context).add(ShareAnEvent(eventModel: eventModel));
+              // logInfo(
+                  // 'the converted image url is $imageUrl and the unfiltered url is ${eventModel.event_img_1}');
             },
           ),
         ],
@@ -167,6 +171,9 @@ class EventDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomButtonBlack(
+              ontap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TicketBookingScreen(eventModel: eventModel)));
+              },
                 buttonTextStyle:
                     theme.textTheme.labelLarge?.copyWith(fontSize: 17),
                 color: AppColors.accentColor,

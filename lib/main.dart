@@ -2,6 +2,8 @@ import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bl
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/blocs/favourites/bloc/favourites_bloc.dart';
 import 'package:evento_event_booking/blocs/search/bloc/search_bloc.dart';
+import 'package:evento_event_booking/blocs/share/share_bloc.dart';
+import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
 import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/data/network/dio_configure.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
@@ -31,6 +33,12 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => FavouritesBloc(),
+      ),
+      BlocProvider(
+        create: (context) => ShareBloc(),
+      ),
+      BlocProvider(
+        create: (context) => TicketBookingBloc(),
       )
     ],
     child: const MyApp(),

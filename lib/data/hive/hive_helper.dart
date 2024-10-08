@@ -1,5 +1,6 @@
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/models/event_model.dart';
+import 'package:evento_event_booking/models/ticket_model.dart';
 import 'package:evento_event_booking/repositories/favourites_repo.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,6 +22,7 @@ class HiveHelper {
 
     // Register adapters
     Hive.registerAdapter(EventModelAdapter());
+    Hive.registerAdapter(TicketTypeAdapter());
 
     // Open the box for EventModel objects
     await Hive.openBox<EventModel>('eventsBox');
