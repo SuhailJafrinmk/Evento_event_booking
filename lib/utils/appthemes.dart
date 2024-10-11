@@ -6,6 +6,7 @@ class Appthemes{
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
+      titleTextStyle: AppTextStyles.headlineLarge,
       backgroundColor: AppColors.backgroundColor,
       iconTheme: IconThemeData(
         color: AppColors.textColor

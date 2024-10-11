@@ -36,19 +36,21 @@ class FavouritesRepo {
     }
   }
 
-  static EitherResponse deleteFromFavourites(int id) async {
-    try {
-      final response = await ApiServices.instance.deleteFromFavourites(id);
-      if (response.statusCode == 200) {
-        return Right(response);
-      }
-      AppExceptions appExceptions =
-          mapStatusCodeToException(response.statusCode);
-      return Left(appExceptions);
-    } catch (e) {
-      logError(
-          'the error while deleting a favourited event is ${e.toString()}');
-      return Left(AppExceptions(errorMessage: e.toString()));
+static EitherResponse deleteFromFavourites(int id) async {
+  try {
+    final response = await ApiServices.instance.deleteFromFavourites(id);
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      logInfo('the response of deleting favourite is ${response}');
+      return Right(response);
     }
+    AppExceptions appExceptions =
+        mapStatusCodeToException(response.statusCode);
+    return Left(appExceptions);
+  } catch (e) {
+    logError(
+        'The error while deleting a favorited event is ${e.toString()}');
+    return Left(AppExceptions(errorMessage: e.toString()));
   }
+}
+
 }

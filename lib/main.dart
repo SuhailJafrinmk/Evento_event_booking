@@ -11,8 +11,6 @@ import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/view/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +18,6 @@ void main()async{
   SharedPref.instance.initSharedPreferences();
   await HiveHelper().initHive();
   await HiveHelper().storeFavouritesFromBackend();
-  Hive.initFlutter();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

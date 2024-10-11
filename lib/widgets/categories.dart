@@ -11,48 +11,50 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme=Theme.of(context);
-    return Container(
-      height: 60.0,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          final item=categories[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Container(
-              padding: EdgeInsets.only(bottom: 3),
-              width: 80,
-              decoration: BoxDecoration(
-                color: AppColors.categoryBackgroundColor,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: ClipOval(
-                      child: CustomCachedNetworkImage(
-                        width: 40,
-                        height: 40,
-                        imageUrl: item.image
-                        ),
+    return InkWell(
+      child: Container(
+        height: 60.0,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: categories.length,
+          itemBuilder: (context, index) {
+            final item=categories[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Container(
+                padding: EdgeInsets.only(bottom: 3),
+                width: 80,
+                decoration: BoxDecoration(
+                  color: AppColors.categoryBackgroundColor,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: ClipOval(
+                        child: CustomCachedNetworkImage(
+                          width: 40,
+                          height: 40,
+                          imageUrl: item.image
+                          ),
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      categories[index].name,
-                      style: theme.textTheme.headlineSmall,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        categories[index].name,
+                        style: theme.textTheme.headlineSmall,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

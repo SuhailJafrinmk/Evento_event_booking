@@ -1,5 +1,6 @@
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:evento_event_booking/widgets/ticket_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class TicketBookingScreen extends StatefulWidget {
 class _TicketBookingScreenState extends State<TicketBookingScreen> {
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFFF6F5F0),
       body: SingleChildScrollView(
@@ -23,12 +25,17 @@ class _TicketBookingScreenState extends State<TicketBookingScreen> {
             // 1. Header Image
             Stack(
               children: [
-                Image.network(
-                  widget.eventModel.event_img_1 ?? placeholderImage, // Replace with your actual image
-                  height: 250,
+                CustomCachedNetworkImage(
+                  imageUrl: widget.eventModel.event_img_1 ?? placeholderImage,
+                  height: size.height*.3,
                   width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+                  ),
+                // Image.network(
+                //   widget.eventModel.event_img_1 ?? placeholderImage, // Replace with your actual image
+                //   height: 250,
+                //   width: double.infinity,
+                //   fit: BoxFit.cover,
+                // ),
                 Positioned(
                   bottom: 20,
                   left: 20,
@@ -60,7 +67,7 @@ class _TicketBookingScreenState extends State<TicketBookingScreen> {
                     children: [
                       Icon(Icons.calendar_today, size: 20),
                       SizedBox(width: 8),
-                      Text('9 August 2024', style: TextStyle(fontSize: 16)), // Use actual event date
+                      Text('${widget.eventModel.end_date}', style: TextStyle(fontSize: 16)), // Use actual event date
                       SizedBox(width: 20),
                       Icon(Icons.access_time, size: 20),
                       SizedBox(width: 8),
@@ -72,7 +79,7 @@ class _TicketBookingScreenState extends State<TicketBookingScreen> {
                     children: [
                       Icon(Icons.location_on, size: 20),
                       SizedBox(width: 8),
-                      Text('Nalanda auditorium calicut', style: TextStyle(fontSize: 16)), // Use actual event location
+                      Text('${widget.eventModel.location}', style: TextStyle(fontSize: 16)), // Use actual event location
                     ],
                   ),
                 ],

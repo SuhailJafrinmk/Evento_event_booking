@@ -29,6 +29,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
             child: BlocBuilder<FavouritesBloc, FavouritesState>(
               builder: (context, state) {
                 if(state is GetAllFavouritesSuccess){
+                  if(state.favouriteEvents.isEmpty){
+                    return Center(
+                      child:Text('No items in favourite list'),
+                    );
+                  }
                  return ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: state.favouriteEvents.length,

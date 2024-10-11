@@ -1,13 +1,11 @@
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class CustomCacheManager {
-  // Private constructor
   CustomCacheManager._privateConstructor();
 
-  // Singleton instance
+
   static final CustomCacheManager _instance = CustomCacheManager._privateConstructor();
 
-  // Factory method to return the singleton instance
   factory CustomCacheManager() {
     return _instance;
   }

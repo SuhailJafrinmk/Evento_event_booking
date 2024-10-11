@@ -113,7 +113,8 @@ class EventBloc extends Bloc<EventEvent, EventState> {
 
   FutureOr<void> fetchEventByLocation(FetchEventByLocation event, Emitter<EventState> emit)async{
     EventLocations? locations=SharedPref.instance.getUserLocation();
-    final response=await EventsRepo.getEventsByLocation(locations!.id);
+    if(locations!=null){
+          final response=await EventsRepo.getEventsByLocation(locations.id);
     response.fold((left){
       
     }, (right){
@@ -124,6 +125,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         eventsAtLocation: eventsAtLocation
       ));
     });
+    }
   }
 
   FutureOr<void> fetchEventDetails(FetchEventDetails event, Emitter<EventState> emit)async{

@@ -1,10 +1,10 @@
-import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/models/ticket_model.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
+import 'package:evento_event_booking/view/ticket_booking/ticket_confirmation.dart';
+import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TicketCard extends StatefulWidget {
   final EventModel eventModel;
@@ -16,7 +16,7 @@ class TicketCard extends StatefulWidget {
 
 class _TicketCardState extends State<TicketCard> {
   int quantity = 1;
-  final int maxQuantity = 5; // Max ticket count restriction
+  final int maxQuantity = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class _TicketCardState extends State<TicketCard> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFFF5F5F5), // light background color
+          color: Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(15.0),
-          border: Border.all(color: Colors.black12), // light border color
+          border: Border.all(color: Colors.black12),
         ),
         child: Row(
           children: [
@@ -35,16 +35,14 @@ class _TicketCardState extends State<TicketCard> {
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  widget.ticketType.ticketImage ?? placeholderImage,
+                child: CustomCachedNetworkImage(
+                  imageUrl: widget.ticketType.ticketImage ?? placeholderImage,
                   height: 100,
                   width: 100,
-                  fit: BoxFit.cover,
-                ),
+                  ),
               ),
             ),
 
-            // Ticket Details
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,16 +56,13 @@ class _TicketCardState extends State<TicketCard> {
                       style: TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500)),
                   SizedBox(height: 4.0),
-                  Text('${widget.ticketType.soldCount} left',
+                  Text('${widget.ticketType.count-widget.ticketType.soldCount} left',
                       style: TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
             ),
-
-            // Quantity Selector & Checkout Button
             Column(
               children: [
-                // Quantity selector
                 Row(
                   children: [
                     IconButton(
@@ -90,7 +85,6 @@ class _TicketCardState extends State<TicketCard> {
                             quantity++;
                           });
                         } else {
-                          // Show Snackbar if maxQuantity is reached
                           ScaffoldMessenger.of(context).showSnackBar(
                            customSnackbar(context, false, 'Maximum 5 tickets only allowed'),
                           );
@@ -100,11 +94,14 @@ class _TicketCardState extends State<TicketCard> {
                     ),
                   ],
                 ),
-
-                // Checkout Button
                 ElevatedButton(
                   onPressed: () {
-                   BlocProvider.of<TicketBookingBloc>(context).add(BookAnEvent(ticketType: widget.ticketType, ticketCount: quantity));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+                  TicketConfirmationPage(
+                    eventModel: widget.eventModel,
+                    ticketType: widget.ticketType,
+                    ticketQuantity: quantity,
+                    )));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

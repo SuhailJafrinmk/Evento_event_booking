@@ -66,7 +66,6 @@ class ApiServices {
     final response = await DioClient.instance.dio.get(
       ApiUrls.getEvents,
     );
-    log('the raw data for all events is : $response');
     return response;
   }
 
@@ -95,20 +94,17 @@ class ApiServices {
     final response = await DioClient.instance.dio.get(
       ApiUrls.byLocation(id),
     );
-    logInfo('the raw data for getevent by location is:$response');
     return response;
   }
 
   Future<Response> getEventDetails(int id) async {
     final response = await DioClient.instance.dio.get(ApiUrls.eventDetails(id));
-    logInfo('the raw data for getevent details is:$response');
     return response;
   }
 
   Future<Response> getMoreEvents(String nextPageUrl) async {
     String endPoint = nextPageUrl.split('.ink').last;
     final response = await DioClient.instance.dio.get(endPoint);
-    logInfo('the raw data for getevent details is:$response');
     return response;
   }
 
@@ -116,7 +112,6 @@ class ApiServices {
     final response = await DioClient.instance.dio.post(
       ApiUrls.addToWishlist(id),
     );
-    logInfo('the response for adding to favourites is:$response');
     return response;
   }
 
@@ -124,7 +119,6 @@ class ApiServices {
     final response = await DioClient.instance.dio.get(
       ApiUrls.getWishlistedEvents
     );
-    logInfo('the response for getting all favourites is:$response');
     return response;
   }
 
@@ -132,7 +126,6 @@ class ApiServices {
     final response = await DioClient.instance.dio.delete(
       ApiUrls.removeFromWishlist(id),
     );
-    logInfo('the response for getting all favourites is:$response');
     return response;
   }
 
@@ -140,7 +133,7 @@ class ApiServices {
     final Map<String,dynamic> queryParameters={'ticket_id':id};
     final Map<String,dynamic> data={"ticket_count":ticketCount};
     final response=await DioClient.instance.dio.post(
-      "/events/ticket/booking/$id",
+      "/events/ticket/booking/$id/",
       // ApiUrls.bookATicket,
       // queryParameters: queryParameters,
       data: jsonEncode(data),
