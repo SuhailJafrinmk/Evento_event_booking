@@ -31,7 +31,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 if(state is GetAllFavouritesSuccess){
                   if(state.favouriteEvents.isEmpty){
                     return Center(
-                      child:Text('No items in favourite list'),
+                      child:Text('No items in favourite list',style: theme.textTheme.bodySmall,),
                     );
                   }
                  return ListView.builder(

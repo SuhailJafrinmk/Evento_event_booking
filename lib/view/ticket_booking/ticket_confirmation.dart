@@ -1,8 +1,10 @@
+import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
 import 'package:evento_event_booking/models/event_model.dart';
 import 'package:evento_event_booking/models/ticket_model.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TicketConfirmationPage extends StatelessWidget {
   final EventModel eventModel;
@@ -87,7 +89,13 @@ class TicketConfirmationPage extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            CustomButtonBlack(text: 'Book now',color: AppColors.accentColor,),
+            CustomButtonBlack(
+              text: 'Book now',
+              color: AppColors.accentColor,
+              ontap: () {
+                BlocProvider.of<TicketBookingBloc>(context).add(BookAnEvent(ticketType: ticketType, ticketCount: ticketQuantity));
+              },            
+            ),
           ],
         ),
       ),

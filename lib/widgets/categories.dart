@@ -1,4 +1,6 @@
+import 'package:evento_event_booking/data/network/api_services.dart';
 import 'package:evento_event_booking/models/category_model.dart';
+import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
@@ -11,15 +13,18 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme=Theme.of(context);
-    return InkWell(
-      child: Container(
-        height: 60.0,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            final item=categories[index];
-            return Padding(
+    return Container(
+      height: 60.0,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final item=categories[index];
+          return InkWell(
+            onTap: () {
+              // await ApiServices.instance.getEventByCategory(item.name);
+            },
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Container(
                 padding: EdgeInsets.only(bottom: 3),
@@ -52,9 +57,9 @@ class CategoriesList extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

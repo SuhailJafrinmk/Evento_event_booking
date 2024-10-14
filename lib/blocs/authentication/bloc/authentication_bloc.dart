@@ -123,7 +123,7 @@ FutureOr<void> googleSignInClicked(GoogleSignInClicked event, Emitter<Authentica
       emit(GoogleTokenNOtVerified(errorMessage: response.left.errorMessage));
     } else {
       final String backendToken=response.right;
-      // SharedPref.instance.storeAccessToken(backendToken); //the backend token recieved from google auth is stored in local storage
+      SharedPref.instance.storeAccessToken(backendToken); //the backend token recieved from google auth is stored in local storage
       developer.log('the backend token recieved from google auth is stored in local storage');
       developer.log("${SharedPref.instance.getToken()}");
       emit(GoogleTokenVerified());

@@ -138,6 +138,18 @@ class ApiServices {
       // queryParameters: queryParameters,
       data: jsonEncode(data),
     );
+    logInfo('the response of booking tickets is $response');
     return response;
   }
+
+  Future<Response> getEventByCategory(String categoryName)async{
+    final query={'category':categoryName};
+    final response=await DioClient.instance.dio.get(
+      ApiUrls.getEvents,
+      queryParameters: query
+      );
+    print('response for getting events of category is $response');
+    return response;
+  }
+
 }

@@ -113,4 +113,18 @@ class EventsRepo{
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
+
+  static EitherResponse getEventByCategory(String categoryName)async{
+    try {
+      final response=await ApiServices.instance.getEventByCategory(categoryName);
+      if(response.statusCode==200){
+        return Right(response);
+      }
+      AppExceptions exceptions=mapStatusCodeToException(response.statusCode);
+      return Left(exceptions);
+    } catch (e) {
+      logError('some eror occured ${e.toString()}');
+      return Left(AppExceptions(errorMessage: e.toString()));
+    }
+  }
 }
