@@ -7,3 +7,4 @@ class BookAnEvent extends TicketBookingEvent{
   final int ticketCount;
   BookAnEvent({required this.ticketType, required this.ticketCount});
 }
+class GetBookedTickets extends TicketBookingEvent{}

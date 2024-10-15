@@ -12,4 +12,13 @@ class TicketBookingFailed extends TicketBookingState{
   final String message;
   TicketBookingFailed({required this.message});
 }
+class BookedTicketsLoading extends TicketBookingState{}
+class BookedTicketsFetched extends TicketBookingState{
+  final List<BookedTicketModel> bookedTickets;
+  BookedTicketsFetched({required this.bookedTickets});
+}
+class ErrorFetchingBookedTickets extends TicketBookingState{
+  final String errorMessage;
+  ErrorFetchingBookedTickets({required this.errorMessage});
+}
 

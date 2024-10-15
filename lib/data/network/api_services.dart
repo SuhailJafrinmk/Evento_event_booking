@@ -159,4 +159,12 @@ class ApiServices {
     return response;
   }
 
+    Future<Response> getBookedTickets()async{
+    final response=await DioClient.instance.dio.get(
+      ApiUrls.getBookedTickets
+    );
+    logInfo('response getting booked tickets is $response');
+    return response;
+  }
+
 }

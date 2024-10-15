@@ -36,4 +36,18 @@ class TicketRepo{
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
+
+    static EitherResponse getBookedTickets()async{
+      try {
+        final response=await ApiServices.instance.getBookedTickets();
+        if(response.statusCode==200){
+          return Right(response);
+        }
+        AppExceptions exceptions=mapStatusCodeToException(response.statusCode);
+        return Left(exceptions);
+      } catch (e) {
+        logError('an errror occured while fetching booked tickets ${e.toString()}');
+        return Left(AppExceptions(errorMessage: e.toString()));
+      }
+    }
 }

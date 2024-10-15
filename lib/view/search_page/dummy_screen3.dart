@@ -1,8 +1,11 @@
+import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/view/ticket_booking/booked_tickets_page.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -38,7 +41,11 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-               CustomButtonBlack(text: 'Edit profile',
+               CustomButtonBlack(
+                ontap: () {
+                  BlocProvider.of<TicketBookingBloc>(context).add(GetBookedTickets());
+                },
+                text: 'Edit profile',
                color: AppColors.accentColor,
                width: size.width*.3,
                height: size.width*.15,
@@ -68,6 +75,7 @@ class ProfileScreen extends StatelessWidget {
                   icon: Icons.airplane_ticket_rounded,
                   title: 'My tickets',
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BookedTicketsPage()));
                   },
                 ),
                   ListTile(
