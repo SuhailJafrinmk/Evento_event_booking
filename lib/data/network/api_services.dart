@@ -134,8 +134,6 @@ class ApiServices {
     final Map<String,dynamic> data={"ticket_count":ticketCount};
     final response=await DioClient.instance.dio.post(
       "/events/ticket/booking/$id/",
-      // ApiUrls.bookATicket,
-      // queryParameters: queryParameters,
       data: jsonEncode(data),
     );
     logInfo('the response of booking tickets is $response');
@@ -148,7 +146,16 @@ class ApiServices {
       ApiUrls.getEvents,
       queryParameters: query
       );
-    print('response for getting events of category is $response');
+    logInfo('response for category events is $response');
+    return response;
+  }
+
+  Future<Response> confirmTicket(Map<String,dynamic> data)async{
+    final response=await DioClient.instance.dio.post(
+      ApiUrls.confirmTicket,
+      data: jsonEncode(data),
+    );
+    logInfo('response for confirming ticket $response');
     return response;
   }
 

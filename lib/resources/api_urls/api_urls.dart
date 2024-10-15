@@ -25,4 +25,5 @@ class ApiUrls{
   static String addToWishlist(int id)=>'/events/wishlist/$id/';
   static String removeFromWishlist(int id)=>'/events/wishlist/$id/';
   static String bookATicket='/events/ticket/booking/';
+  static String confirmTicket='/events/confirm-payment/';
 }

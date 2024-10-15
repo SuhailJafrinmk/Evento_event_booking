@@ -1,4 +1,5 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:evento_event_booking/blocs/category/bloc/category_bloc.dart';
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/blocs/favourites/bloc/favourites_bloc.dart';
 import 'package:evento_event_booking/blocs/search/bloc/search_bloc.dart';
@@ -43,6 +44,9 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => TicketBookingBloc(),
+      ),
+      BlocProvider(
+        create: (context) => CategoryBloc(),
       )
     ],
     child: const MyApp(),

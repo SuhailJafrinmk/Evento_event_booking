@@ -22,4 +22,18 @@ class TicketRepo{
       return Left(AppExceptions(errorMessage: e.toString()));
     }
   }
+
+  static EitherResponse confirmTicket(Map<String,dynamic> data)async{
+    try {
+      final response=await ApiServices.instance.confirmTicket(data);
+      if(response.statusCode==200||response.statusCode==201){
+        return Right(response);
+      }
+      AppExceptions exceptions=mapStatusCodeToException(response.statusCode);
+      return Left(exceptions);
+    } catch (e) {
+      logError('an error cocured while confirming ticket ${e.toString()}');
+      return Left(AppExceptions(errorMessage: e.toString()));
+    }
+  }
 }
