@@ -91,7 +91,7 @@ class BookedTickets extends StatelessWidget {
                   flex: 1,
                   child: bookedTicketModel.qrCode != null
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(2),
                           child: Image.network(
                             bookedTicketModel.qrCode!,
                             fit: BoxFit.cover,

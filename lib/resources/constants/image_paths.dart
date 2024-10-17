@@ -7,5 +7,6 @@ class AssetImages{
   static const String emailIconImage='assets/images/email_icon_image.png';
   static const String profileAvatar='assets/images/profile_avatar_withoutbg.png';
   static const String ticketImage='assets/images/ticket_image_bg_1500X1600_cropped.png';
+  static const String lottieNoData='assets/lottie_animations/Animation - 1728992802682.json';
 }
 String placeholderImage='https://res.cloudinary.com/dccos4vab/image/upload/v1724157117/image-not-found-scaled-1150x647_dzdhuj.png';

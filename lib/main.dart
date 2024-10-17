@@ -2,6 +2,7 @@ import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bl
 import 'package:evento_event_booking/blocs/category/bloc/category_bloc.dart';
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/blocs/favourites/bloc/favourites_bloc.dart';
+import 'package:evento_event_booking/blocs/profile/bloc/profile_bloc.dart';
 import 'package:evento_event_booking/blocs/search/bloc/search_bloc.dart';
 import 'package:evento_event_booking/blocs/share/share_bloc.dart';
 import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
@@ -25,7 +26,6 @@ void main()async{
   DioClient.instance.initialize();
   SharedPref.instance.initSharedPreferences();
   await HiveHelper().initHive();
-  await HiveHelper().storeFavouritesFromBackend();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
@@ -47,6 +47,9 @@ void main()async{
       ),
       BlocProvider(
         create: (context) => CategoryBloc(),
+      ),
+      BlocProvider(
+        create: (context) => ProfileBloc(),
       )
     ],
     child: const MyApp(),

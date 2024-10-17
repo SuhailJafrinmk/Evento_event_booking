@@ -35,6 +35,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     );
                   }
                  return ListView.builder(
+                  padding: const EdgeInsets.all(10),
                   scrollDirection: Axis.vertical,
                   itemCount: state.favouriteEvents.length,
                   itemBuilder: (context, index) {

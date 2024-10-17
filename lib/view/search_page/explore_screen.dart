@@ -1,12 +1,15 @@
 import 'package:evento_event_booking/blocs/search/bloc/search_state.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
+import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/widgets/custom_textfield.dart';
 import 'package:evento_event_booking/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../blocs/search/bloc/search_bloc.dart';
+
+
 
 class ExploreScreen extends StatefulWidget {
   @override
@@ -37,31 +40,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            // Search bar with dropdown for sorting
             CustomTextField(          
-              // suffixIcon: DropdownButton<String>(
-              //   icon: Icon(Icons.sort),
-              //   value: _selectedValue, // The currently selected value
-              //   items: [
-              //     DropdownMenuItem(value: 'name', child: Text('Name')),
-              //     DropdownMenuItem(value: 'date', child: Text('Date')),
-              //     DropdownMenuItem(value: 'popularity', child: Text('Popularity')),
-              //   ],
-              //   onChanged: (value) {
-              //     setState(() {
-              //       _selectedValue = value; // Update the selected sort value
-              //     });
-              //     context.read<SearchBloc>().add(FilterItemsEvent(
-              //         query: textEditingController.text, 
-              //         sortType: value ?? 'name' // Send sortType in the event
-              //     ));
-              //   },
-              // ),
               hintText: 'Search for an event',
               textEditingController: textEditingController,
               prefixIcon: Icons.search,
@@ -87,7 +72,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   } else if (state is ItemLoadedState) {
                     logInfo('the next page url is ${state.nextPageUrl}');
                     if (state.filteredItems.isEmpty) {
-                      return const Center(child: Text('No items found'));
+                      return  Center(child: Lottie.asset(AssetImages.lottieNoData,height: size.height*.5,width: size.width*.5));
                     }
                     return ListView.builder(
                       controller: scrollController,

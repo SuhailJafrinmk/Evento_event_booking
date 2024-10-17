@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/models/location_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +20,7 @@ class SharedPref{
   void storeTokens(String userToken,String userRefreshToken)async{
     await sharedPref.setString(token, userToken);
     await sharedPref.setString(refreshToken,userRefreshToken);
+    await HiveHelper().storeFavouritesFromBackend();
   }
   void removeToken()async{
     await sharedPref.remove(token);

@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/resources/constants/rive_animation_paths.dart';
 import 'package:evento_event_booking/view/authentication/session_expired_screen.dart';
@@ -22,7 +23,8 @@ void initState() {
     await Future.delayed(Duration(seconds: 4)); // Simulate a delay
     String? accessToken = SharedPref.instance.getToken();
     String?refreshToken=SharedPref.instance.getRefreshToken();
-    if (accessToken != null && accessToken.isNotEmpty) {
+    if (accessToken != null && accessToken.isNotEmpty){
+      await HiveHelper().storeFavouritesFromBackend();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainNavigationWrapper()));
     }else if(accessToken==null){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OnBoardingPage()));

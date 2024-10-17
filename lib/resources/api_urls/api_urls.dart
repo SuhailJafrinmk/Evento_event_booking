@@ -27,4 +27,5 @@ class ApiUrls{
   static String bookATicket='/events/ticket/booking/';
   static String confirmTicket='/events/confirm-payment/';
   static String getBookedTickets='/accounts/user-tickets/';
+  static String updateProfile='/accounts/user-profile/';
 }

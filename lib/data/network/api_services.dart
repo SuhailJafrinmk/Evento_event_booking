@@ -167,4 +167,22 @@ class ApiServices {
     return response;
   }
 
+  Future<Response> updateProfile(FormData formData)async{
+    final response=await DioClient.instance.dio.put(
+      ApiUrls.updateProfile,
+      data: formData,
+      options: Options(headers: {
+        "Content-Type":"multipart/form-data",
+      })
+      );
+    logInfo('the response for updating profile is ${response.data}');
+    return response;
+  }
+
+  Future<Response> getProfileDetails()async{
+    final response=await DioClient.instance.dio.get(ApiUrls.updateProfile);
+    logInfo('response for getting profile details is $response');
+    return response;
+  }
+
 }
