@@ -11,7 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SelectAuthentication extends StatelessWidget {
   const SelectAuthentication({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;

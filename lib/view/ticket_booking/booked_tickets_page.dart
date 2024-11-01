@@ -1,7 +1,9 @@
 import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
+import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/widgets/booked_tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 
 class BookedTicketsPage extends StatefulWidget {
@@ -24,13 +26,13 @@ class _BookedTicketsPageState extends State<BookedTicketsPage> {
 
   @override
   void dispose() {
-    // Dispose of the BLoC when the page is closed to avoid memory leaks
     _ticketBookingBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booked Tickets'),
@@ -40,7 +42,9 @@ class _BookedTicketsPageState extends State<BookedTicketsPage> {
         child: BlocBuilder<TicketBookingBloc, TicketBookingState>(
           builder: (context, state) {
             if (state is BookedTicketsLoading) {
-              return const Center(child: CircularProgressIndicator());
+             return Center(
+              child: Lottie.asset(AssetImages.lottieTicketLoadingMint,height: size.height*.5,width: size.width*.5),
+             );
             } else if (state is ErrorFetchingBookedTickets) {
               return Center(
                 child: Text(

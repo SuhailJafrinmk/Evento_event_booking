@@ -3,6 +3,7 @@ import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/about_us/about_us_page.dart';
+import 'package:evento_event_booking/view/about_us/contact_us.dart';
 import 'package:evento_event_booking/view/profile/edit_profile.dart';
 import 'package:evento_event_booking/view/ticket_booking/booked_tickets_page.dart';
 import 'package:evento_event_booking/view/wishlist/my_wishlist.dart';
@@ -115,6 +116,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: 'About us',
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutUsPage()));
+                  },
+                ),
+                buildProfileOption(
+                  icon: Icons.contact_support_sharp,
+                  title: 'Contact us',
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactUsPage()));
                   },
                 ),
               ],

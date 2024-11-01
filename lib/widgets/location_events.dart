@@ -106,7 +106,7 @@ class LocationEvents extends StatelessWidget {
                                 isFavourite
                                     ? Icons.favorite_rounded
                                     : Icons.favorite_border_outlined,
-                                color: isFavourite ? Colors.red : Colors.grey,
+                                color: isFavourite ? Colors.red : Colors.white,
                                 size: 30,
                               ),
                             ),

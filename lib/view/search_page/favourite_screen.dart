@@ -20,35 +20,37 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Favorites',style: theme.textTheme.displayLarge,),
-          SizedBox(height: 10,),
-          Expanded(
-            child: BlocBuilder<FavouritesBloc, FavouritesState>(
-              builder: (context, state) {
-                if(state is GetAllFavouritesSuccess){
-                  if(state.favouriteEvents.isEmpty){
-                    return Center(
-                      child:Text('No items in favourite list',style: theme.textTheme.bodySmall,),
+      child: Padding(
+        padding:  EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Favorites',style: theme.textTheme.displayLarge,),
+            SizedBox(height: 10,),
+            Expanded(
+              child: BlocBuilder<FavouritesBloc, FavouritesState>(
+                builder: (context, state) {
+                  if(state is GetAllFavouritesSuccess){
+                    if(state.favouriteEvents.isEmpty){
+                      return Center(
+                        child:Text('No items in favourite list',style: theme.textTheme.bodySmall,),
+                      );
+                    }
+                   return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.favouriteEvents.length,
+                    itemBuilder: (context, index) {
+                      final item=state.favouriteEvents[index];
+                      return EventTile(eventModel: item);
+                    },
                     );
                   }
-                 return ListView.builder(
-                  padding: const EdgeInsets.all(10),
-                  scrollDirection: Axis.vertical,
-                  itemCount: state.favouriteEvents.length,
-                  itemBuilder: (context, index) {
-                    final item=state.favouriteEvents[index];
-                    return EventTile(eventModel: item);
-                  },
-                  );
-                }
-                return Container();
-              },
+                  return Container();
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

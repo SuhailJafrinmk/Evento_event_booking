@@ -8,7 +8,10 @@ class ProfileDataFetched extends ProfileState{
   final UserProfile userProfile;
   ProfileDataFetched({required this.userProfile});
 }
+
+
 class ErrorFetchingProfileData extends ProfileState{
   final String errorMessage;
   ErrorFetchingProfileData({required this.errorMessage});
 }
+class ProfileDataUpdated extends ProfileState{}

@@ -14,6 +14,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetProfileDetails>(getProfileDetails);
   }
 
+
   FutureOr<void> editProfileClicked(EditProfileClicked event, Emitter<ProfileState> emit)async{
     MultipartFile imageFile=await MultipartFile.fromFile(event.image!.path,filename: event.image!.path);
     FormData formData=FormData.fromMap({
@@ -21,7 +22,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       'profile_picture':imageFile,
     });
     final response=await ProfileRepo.updateProfile(formData);
+       response.fold(
+      (failure) {
+        emit(ErrorFetchingProfileData(errorMessage: failure.errorMessage));
+      },
+      (success) {
+        emit(ProfileDataUpdated()); 
+        add(GetProfileDetails());
+      },
+    );
   }
+  
 
   FutureOr<void> getProfileDetails(GetProfileDetails event, Emitter<ProfileState> emit)async{
     final response=await ProfileRepo.GetProfileDetails();

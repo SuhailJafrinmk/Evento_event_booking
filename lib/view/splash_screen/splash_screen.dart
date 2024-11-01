@@ -20,7 +20,7 @@ void initState() {
     _checkAccessToken();
   }
     Future<void> _checkAccessToken() async {
-    await Future.delayed(Duration(seconds: 4)); // Simulate a delay
+    await Future.delayed(const Duration(seconds: 4)); // Simulate a delay
     String? accessToken = SharedPref.instance.getToken();
     String?refreshToken=SharedPref.instance.getRefreshToken();
     if (accessToken != null && accessToken.isNotEmpty){
@@ -44,8 +44,8 @@ void initState() {
           children: [
             Align(
               alignment: Alignment.center,
-              child: ZoomInText(text: 'evento', duration: Duration(seconds: 2)),),
-            Align(
+              child: ZoomInText(text: 'evento', duration: const Duration(seconds: 2)),),
+            const Align(
               alignment: Alignment.center,
               child: RiveAnimation.asset(
                 RiveAnimationPaths.splashScreenAnimation

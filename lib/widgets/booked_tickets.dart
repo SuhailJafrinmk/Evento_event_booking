@@ -11,7 +11,7 @@ class BookedTickets extends StatelessWidget {
   Widget build(BuildContext context) {
     final size=MediaQuery.of(context).size;
     return Container(
-      height: size.height*.19,
+      height: size.height*.2,
       width: double.infinity,
       child: Stack(
         fit: StackFit.expand, // Ensures the image and content fill the container

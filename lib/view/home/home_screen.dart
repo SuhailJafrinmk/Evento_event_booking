@@ -1,5 +1,5 @@
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
+import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/view/home/category_page.dart';
 import 'package:evento_event_booking/widgets/carousel_widget.dart';
 import 'package:evento_event_booking/widgets/categories.dart';
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, state) {
                 if (state is EventStateLoaded) {
                   if (state.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CustomProgressIndicator(size: 30,));
                   } else if (state.errorMessage != null) {
                     return Text(
                       'Failed to load data: ${state.errorMessage}',

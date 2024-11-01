@@ -65,7 +65,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 builder: (context, state) {
                   if (state is ItemLoadingState) {
                     return const Center(
-                      child: CustomProgressIndicator(),
+                      child: CustomProgressIndicator(size: 30,),
                     );
                   } else if (state is ItemErrorState) {
                     return Center(child: Text(state.errorMessage));
