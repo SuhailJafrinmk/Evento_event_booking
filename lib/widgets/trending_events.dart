@@ -1,16 +1,10 @@
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/api_urls/api_urls.dart';
-import 'package:evento_event_booking/resources/constants/image_paths.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
-import 'package:evento_event_booking/resources/constants/user_colors.dart';
-import 'package:evento_event_booking/utils/appthemes.dart';
-import 'package:evento_event_booking/utils/cache_manager.dart';
 import 'package:evento_event_booking/view/events/single_event.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
 import 'package:flutter/material.dart';
 import 'package:evento_event_booking/models/event_model.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class TrendingEvents extends StatelessWidget {
   final List<EventModel> trendingEvents;
@@ -62,17 +56,25 @@ class TrendingEvents extends StatelessWidget {
                               ],
                             ),
                           ),
-                          CustomButtonBlack(
+                          CustomElevatedButton(
                             elevation: 20,
-                            color: AppColors.accentColor,
                             width: 70,
                             height: 30,
-                            text: 'Book now',
-                            buttonTextStyle: theme.textTheme.labelLarge,
-                            ontap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: event)));
-                            },
-                          ),
+                            
+                            buttonChild: Text('Book now',style:theme.textTheme.labelLarge ),
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: event))),
+                            ),
+                          // CustomButtonBlack(
+                          //   elevation: 20,
+                          //   color: AppColors.accentColor,
+                          //   width: 70,
+                          //   height: 30,
+                          //   text: 'Book now',
+                          //   buttonTextStyle: theme.textTheme.labelLarge,
+                          //   ontap: () {
+                          //     Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetailsScreen(eventModel: event)));
+                          //   },
+                          // ),
                         ],
                       ),
                     ),

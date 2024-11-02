@@ -204,17 +204,25 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               const SizedBox(height: 16),
-              CustomButtonBlack(
-                ontap: () {
+              CustomElevatedButton(
+                       onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
                           TicketBookingScreen(eventModel: widget.eventModel)));
                 },
-                buttonTextStyle:
-                    theme.textTheme.labelLarge?.copyWith(fontSize: 17),
-                color: AppColors.accentColor,
-                text: 'Book now',
-              )
+                buttonChild: Text('Book now'),
+                )
+              // CustomButtonBlack(
+              //   ontap: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (context) =>
+              //             TicketBookingScreen(eventModel: widget.eventModel)));
+              //   },
+              //   buttonTextStyle:
+              //       theme.textTheme.labelLarge?.copyWith(fontSize: 17),
+              //   color: AppColors.accentColor,
+              //   text: 'Book now',
+              // )
             ],
           ),
         ),

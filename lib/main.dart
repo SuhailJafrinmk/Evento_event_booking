@@ -8,6 +8,7 @@ import 'package:evento_event_booking/blocs/profile/bloc/profile_bloc.dart';
 import 'package:evento_event_booking/blocs/search/bloc/search_bloc.dart';
 import 'package:evento_event_booking/blocs/share/share_bloc.dart';
 import 'package:evento_event_booking/blocs/ticket_booking/bloc/ticket_booking_bloc.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/data/hive/hive_helper.dart';
 import 'package:evento_event_booking/data/network/dio_configure.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
@@ -57,6 +58,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => ConnectivityCheckerCubit()..trackConnectivityChange(),
+      ),
+      BlocProvider(
+        create: (context) => TimerCubit(),
       )
     ],
     child: DevicePreview(

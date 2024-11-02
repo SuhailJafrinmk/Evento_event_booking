@@ -1,4 +1,5 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
@@ -89,12 +90,9 @@ class phoneOtpVerification extends StatelessWidget {
                           SizedBox(
                             height: size.height * .02,
                           ),
-                          CustomButtonBlack(
-                            text: 'verify',
-                            color: Colors.cyan,
-                            textColor: AppColors.backgroundColor,
+                          CustomElevatedButton(
                             width: size.width,
-                            ontap: () {
+                              onTap: () {
                               if (otpCode.length == 6) {
                                 BlocProvider.of<AuthenticationBloc>(context)
                                     .add(VerifyMobileOtp(mobileAndOtp: {
@@ -107,7 +105,53 @@ class phoneOtpVerification extends StatelessWidget {
                                         'Please check your OTP'));
                               }
                             },
+                            buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              if(state is VerfiyingMobileOtp){
+                                return CustomProgressIndicator(color: Colors.black,size: 30,);
+                              }
+                              return Text('Verify');
+                            },
+                          )),
+                          const SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('otp send to $phoneNumber',style: theme.textTheme.labelMedium?.copyWith(color: Colors.white),),
+                              BlocConsumer<TimerCubit, TimerState>(
+                                listener: (context, state) {
+                                 if(state is TimeOver){
+                                  ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'Otp Time out !!!'));
+                                 }
+                                },
+                                builder: (context, state) {
+                                  if(state is TimerRunning){
+                                  return Text('${state.timeLeft}',style: theme.textTheme.labelMedium?.copyWith(color: Colors.white),);
+                                  }
+                                  return Container();
+                                },
+                              )
+                            ],
                           ),
+                          // CustomButtonBlack(
+                          //   text: 'verify',
+                          //   color: Colors.cyan,
+                          //   textColor: AppColors.backgroundColor,
+                          //   width: size.width,
+                          //   ontap: () {
+                          //     if (otpCode.length == 6) {
+                          //       BlocProvider.of<AuthenticationBloc>(context)
+                          //           .add(VerifyMobileOtp(mobileAndOtp: {
+                          //         "phone_number": "+91$phoneNumber",
+                          //         "otp": otpCode
+                          //       }));
+                          //     } else {
+                          //       ScaffoldMessenger.of(context).showSnackBar(
+                          //           customSnackbar(context, false,
+                          //               'Please check your OTP'));
+                          //     }
+                          //   },
+                          // ),
                           SizedBox(height: size.height*0.01,),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {

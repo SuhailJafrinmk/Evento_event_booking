@@ -1,14 +1,11 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
-import 'package:evento_event_booking/resources/constants/user_colors.dart';
-import 'package:evento_event_booking/utils/appthemes.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
+
+
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
-import 'package:evento_event_booking/view/events/select_location.dart';
-import 'package:evento_event_booking/view/home/home_screen.dart';
 import 'package:evento_event_booking/view/home/main_navigation_wrapper.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
-import 'package:evento_event_booking/widgets/normal_appbar.dart';
 import 'package:evento_event_booking/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,13 +85,16 @@ class EmailOtpVerification extends StatelessWidget {
                           SizedBox(
                             height: size.height * .02,
                           ),
-                          CustomButtonBlack(
-                            text: 'verify',
-                            color: Colors.cyan,
-                            textColor: AppColors.backgroundColor,
+
+                          CustomElevatedButton(
+                            buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                              builder: (context, state) {
+                                return Text('Verify');
+                              },
+                            ),
                             width: size.width,
-                            ontap: () {
-                              if (otpCode.length == 6) {
+                            onTap: () {
+                                 if (otpCode.length == 6) {
                                 BlocProvider.of<AuthenticationBloc>(context)
                                     .add(VerifyEmailOtp(emailAndOtp: {
                                   "email": email,
@@ -106,7 +106,46 @@ class EmailOtpVerification extends StatelessWidget {
                                         'Please check your OTP'));
                               }
                             },
+                            ),
+                            const SizedBox(height: 10,),
+                            Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('otp send to $email',style: theme.textTheme.labelMedium?.copyWith(color: Colors.white),),
+                              BlocConsumer<TimerCubit, TimerState>(
+                                listener: (context, state) {
+                                 if(state is TimeOver){
+                                  ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'Otp Time out !!!'));
+                                 }
+                                },
+                                builder: (context, state) {
+                                  if(state is TimerRunning){
+                                  return Text('${state.timeLeft}',style: theme.textTheme.labelMedium?.copyWith(color: Colors.white),);
+                                  }
+                                  return Container();
+                                },
+                              )
+                            ],
                           ),
+                          // CustomButtonBlack(
+                          //   text: 'verify',
+                          //   color: Colors.cyan,
+                          //   textColor: AppColors.backgroundColor,
+                          //   width: size.width,
+                          //   ontap: () {
+                          //     if (otpCode.length == 6) {
+                          //       BlocProvider.of<AuthenticationBloc>(context)
+                          //           .add(VerifyEmailOtp(emailAndOtp: {
+                          //         "email": email,
+                          //         "otp": otpCode
+                          //       }));
+                          //     } else {
+                          //       ScaffoldMessenger.of(context).showSnackBar(
+                          //           customSnackbar(context, false,
+                          //               'Please check your OTP'));
+                          //     }
+                          //   },
+                          // ),
                           SizedBox(
                             height: size.height * .02,
                           ),

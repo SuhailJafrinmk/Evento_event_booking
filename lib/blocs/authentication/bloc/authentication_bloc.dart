@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:bloc/bloc.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/repositories/authentication_repo.dart';
@@ -10,7 +11,7 @@ part 'authentication_state.dart';
 
 /// Bloc responsible for handling authentication-related events and states.
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-
+  TimerCubit timerCubit=TimerCubit();
   /// Initializes the AuthenticationBloc with an initial state.
   /// Registers event handlers for various authentication events.
   AuthenticationBloc() : super(AuthenticationInitial()) {
@@ -71,10 +72,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   FutureOr<void> requestMobileOtp(RequestMobileOtp event, Emitter<AuthenticationState> emit) async {
     emit(RequestingMobileOtp());
     final result = await UserAuthenticationRepo.requestMobileOtp(event.mobileNumber);
-    emit(result.fold(
-      (exception) => ErrorSendingMobileOtp(errorMessage: exception.errorMessage),
-      (right) => MobileOtpRequested(),
-    ));
+    result.fold((failure){
+    emit(ErrorSendingMobileOtp(errorMessage: failure.errorMessage));
+    }, (success){
+      emit(MobileOtpRequested());
+    });
+    // emit(result.fold(
+    //   (exception) => ErrorSendingMobileOtp(errorMessage: exception.errorMessage),
+    //   (right) => MobileOtpRequested(),
+    // ));
   }
 
   /// Handles the VerifyMobileOtp event by verifying the provided mobile number and OTP.

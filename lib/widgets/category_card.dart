@@ -49,13 +49,20 @@ class CategoryCard extends StatelessWidget {
           Positioned(
             bottom: 20,
             left: 16,
-            child: CustomButtonBlack(
-              width: 100,
-              height: 40,
+            child:
+            CustomElevatedButton(
               color: AppColors.accentColor,
-              text: 'Explore',
-              buttonTextStyle: theme.textTheme.labelLarge?.copyWith(fontSize: 13),
+              height: 40,
+              width: 100,
+              buttonChild: Text('Explore',style: theme.textTheme.labelLarge?.copyWith(fontSize: 13),)
               ),
+            //  CustomButtonBlack(
+            //   width: 100,
+            //   height: 40,
+            //   color: AppColors.accentColor,
+            //   text: 'Explore',
+            //   buttonTextStyle: theme.textTheme.labelLarge?.copyWith(fontSize: 13),
+            //   ),
           ),
         ],
       ),

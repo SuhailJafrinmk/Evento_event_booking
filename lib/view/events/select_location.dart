@@ -1,3 +1,4 @@
+import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/data/shared_preferences/shared_preferences.dart';
 import 'package:evento_event_booking/models/location_model.dart';
@@ -70,11 +71,8 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
               },
             ),
             const SizedBox(height: 20),
-            CustomButtonBlack(
-              color: AppColors.accentColor,
-              text: 'Add Location',
-              textColor: AppColors.backgroundColor,
-              ontap: () {
+            CustomElevatedButton(
+                            onTap: () {
                  if (selectedLocation != null) {
                   // Handle the submission logic here
                   print('Selected Location: $selectedLocation');
@@ -88,7 +86,31 @@ class _LocationSelectionPageState extends State<LocationSelectionPage> {
                 }
               
               },
+              buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  return Text('Add Location');
+                },
               )
+              ),
+            // CustomButtonBlack(
+            //   color: AppColors.accentColor,
+            //   text: 'Add Location',
+            //   textColor: AppColors.backgroundColor,
+            //   ontap: () {
+            //      if (selectedLocation != null) {
+            //       // Handle the submission logic here
+            //       print('Selected Location: $selectedLocation');
+            //       SharedPref.instance.storeUserLocation(selectedLocation);
+            //       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainNavigationWrapper()));
+            //     } else {
+            //       // Show a message or handle the case where no location is selected
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         const SnackBar(content: Text('Please select a location.')),
+            //       );
+            //     }
+              
+            //   },
+            //   )
           ],
         ),
       ),

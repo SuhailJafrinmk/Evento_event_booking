@@ -1,7 +1,6 @@
 import 'package:evento_event_booking/blocs/profile/bloc/profile_bloc.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
-import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/view/about_us/about_us_page.dart';
 import 'package:evento_event_booking/view/about_us/contact_us.dart';
 import 'package:evento_event_booking/view/profile/edit_profile.dart';
@@ -10,6 +9,7 @@ import 'package:evento_event_booking/view/wishlist/my_wishlist.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -64,16 +64,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      CustomButtonBlack(
-                        ontap: () {
+                      CustomElevatedButton(
+                        buttonChild: Text('Edit profile'),
+                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage()));
                         },
-                        text: 'Edit profile',
-                        color: AppColors.accentColor,
-                        width: size.width * 0.3,
+                         width: size.width * 0.3,
                         height: size.height * 0.05,
-                        buttonRadius: 10,
-                      ),
+                        )
+                      // CustomButtonBlack(
+                      //   ontap: () {
+                      //     Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage()));
+                      //   },
+                      //   text: 'Edit profile',
+                      //   color: AppColors.accentColor,
+                      //   width: size.width * 0.3,
+                      //   height: size.height * 0.05,
+                      //   buttonRadius: 10,
+                      // ),
                     ],
                   );
                 } else if (state is ErrorFetchingProfileData) {

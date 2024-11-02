@@ -1,8 +1,6 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
-import 'package:evento_event_booking/resources/constants/text_styles.dart';
-import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/utils/app/validations.dart';
-import 'package:evento_event_booking/utils/appthemes.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/view/authentication/phone_otp_verification.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
@@ -80,25 +78,50 @@ class _MobileOtpVerificationState extends State<MobileOtpRequesting> {
                             SizedBox(
                               height: size.height * .02,
                             ),
-                            CustomButtonBlack(
-                              ontap: () {
+                            CustomElevatedButton(
+                               width: size.width,
+                              buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                                builder: (context, state) {
+                                  return Text('Send otp to verify');
+                                },
+                              ),
+                                onTap: () {
                                 if (formkey.currentState!.validate()) {
+                                 context.read<TimerCubit>().startTimer();
                                   BlocProvider.of<AuthenticationBloc>(context)
                                       .add(RequestMobileOtp(mobileNumber: {
                                     "phone_number":
                                         "+91${mobileNumberContoller.text}"
                                   }));
+
+                              
+
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       customSnackbar(
                                           context, false, 'Entered phone number is not valid or empty'));
                                 }
                               },
-                              width: size.width,
-                              text: 'Send otp to verify',
-                              color: AppColors.accentColor,
-                              textColor: AppColors.backgroundColor,
-                            ),
+                              ),
+                            // CustomButtonBlack(
+                            //   ontap: () {
+                            //     if (formkey.currentState!.validate()) {
+                            //       BlocProvider.of<AuthenticationBloc>(context)
+                            //           .add(RequestMobileOtp(mobileNumber: {
+                            //         "phone_number":
+                            //             "+91${mobileNumberContoller.text}"
+                            //       }));
+                            //     } else {
+                            //       ScaffoldMessenger.of(context).showSnackBar(
+                            //           customSnackbar(
+                            //               context, false, 'Entered phone number is not valid or empty'));
+                            //     }
+                            //   },
+                            //   width: size.width,
+                            //   text: 'Send otp to verify',
+                            //   color: AppColors.accentColor,
+                            //   textColor: AppColors.backgroundColor,
+                            // ),
                                     BlocBuilder<AuthenticationBloc, AuthenticationState>(
                                     builder: (context, state) {
                                       if(state is RequestingMobileOtp){

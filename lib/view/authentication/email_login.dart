@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/development_only/custom_logger.dart';
 import 'package:evento_event_booking/resources/constants/text_styles.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
@@ -76,9 +77,10 @@ class _EmailLoginState extends State<EmailLogin> {
                               Row(
                                 children: [
                                   Expanded(child: SizedBox()),
-                                  CustomButtonBlack(
-                                    ontap: () {
+                                  CustomElevatedButton(
+                                   onTap: () {
                                       if (formkey.currentState!.validate()) {
+                                        context.read<TimerCubit>().startTimer();
                                         BlocProvider.of<AuthenticationBloc>(
                                                 context)
                                             .add(RequestEmailOtp(UserEmail: {
@@ -90,10 +92,31 @@ class _EmailLoginState extends State<EmailLogin> {
                                     },
                                     elevation: 20,
                                     width: size.width*.94,
-                                    text: 'Sign in',
-                                    color: AppColors.accentColor,
-                                    textColor: AppColors.textColor,
-                                  ),
+                                    buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                                      builder: (context, state) {
+                                        return Text('Sign in');
+                                      },
+                                    )
+                                    ),
+
+                                  // CustomButtonBlack(
+                                  //   ontap: () {
+                                  //     if (formkey.currentState!.validate()) {
+                                  //       BlocProvider.of<AuthenticationBloc>(
+                                  //               context)
+                                  //           .add(RequestEmailOtp(UserEmail: {
+                                  //         'email': emailController.text
+                                  //       }));
+                                  //     } else {
+                                  //       ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, false, 'Invalid credentials'));
+                                  //     }
+                                  //   },
+                                  //   elevation: 20,
+                                  //   width: size.width*.94,
+                                  //   text: 'Sign in',
+                                  //   color: AppColors.accentColor,
+                                  //   textColor: AppColors.textColor,
+                                  // ),
                                
                                 ],
                               ),

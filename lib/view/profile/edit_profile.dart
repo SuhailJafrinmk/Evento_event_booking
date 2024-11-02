@@ -71,13 +71,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 hintText: 'Name',
                  textEditingController: _nameController),
                 SizedBox(height: 20,),
-                CustomButtonBlack(
-                  ontap: () {
+                CustomElevatedButton(
+                  buttonChild: Text('Save profile'),
+                  onTap: () {
                     print('button clicked');
                     BlocProvider.of<ProfileBloc>(context).add(EditProfileClicked(image: _profileImage, userName: _nameController.text));
                   },
-                  color: AppColors.accentColor,
-                  text: 'Save profile'),
+
+                  ),
+                // CustomButtonBlack(
+                //   ontap: () {
+                //     print('button clicked');
+                //     BlocProvider.of<ProfileBloc>(context).add(EditProfileClicked(image: _profileImage, userName: _nameController.text));
+                //   },
+                //   color: AppColors.accentColor,
+                //   text: 'Save profile'),
               ],
             ),
           ),
