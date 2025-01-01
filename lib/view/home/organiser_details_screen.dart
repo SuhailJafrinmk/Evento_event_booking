@@ -2,6 +2,7 @@ import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
+//some random commit on branch organiser_details
 class OrganiserDetailsScreen extends StatelessWidget {
   final String? organiserName;
   final String? organiserEmail;
