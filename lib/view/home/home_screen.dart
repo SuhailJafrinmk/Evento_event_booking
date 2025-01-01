@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
+//some random text in homepage
 class HomePage extends StatefulWidget {
   final String userName;
   final String userLocation;

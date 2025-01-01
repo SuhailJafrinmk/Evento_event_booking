@@ -10,6 +10,7 @@ import 'package:evento_event_booking/widgets/animated_border.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart';
 
+//added some random comments mainnavigationwrapper
 class MainNavigationWrapper extends StatefulWidget {
   @override
   _MainNavigationWrapperState createState() => _MainNavigationWrapperState();
