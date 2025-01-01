@@ -7,6 +7,7 @@ import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/utils/utility_functions.dart';
+import 'package:evento_event_booking/view/home/organiser_details_screen.dart';
 import 'package:evento_event_booking/view/ticket_booking/pick_ticket_page.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_cachednetwork_image.dart';
@@ -182,7 +183,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Wrap(
+               Wrap(
                 spacing: 8,
                 children: [
                   Chip(
@@ -190,19 +191,39 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     backgroundColor: Colors.white12,
                     labelStyle: TextStyle(color: Colors.black),
                   ),
-                  Chip(
-                    label: Text('Eventeazz'),
-                    backgroundColor: Colors.white12,
-                    labelStyle: TextStyle(color: Colors.black),
-                    avatar: Icon(Icons.add, color: Colors.black),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>OrganiserDetailsScreen(
+                        organiserName: widget.eventModel.organizer_name,
+                        organiserEmail: widget.eventModel.organizer_email,
+                        organiserImage: widget.eventModel.organizer_profile_photo,
+                        organiserId: widget.eventModel.organizer_id,
+                        organiserPhone: widget.eventModel.organizer_phone,
+                      )));
+                    },
+                    child: Chip(
+                      side: BorderSide(color: Colors.blue,width: 2,style: BorderStyle.solid),
+                      label: Text(widget.eventModel.organizer_name ?? 'not provided'),
+                      backgroundColor: Colors.white12,
+                      labelStyle: TextStyle(color: Colors.black),
+                      avatar: Icon(Icons.add, color: Colors.black),
+                    ),
                   ),
                 ],
               ),
               const Spacer(),
-              const Text(
-                'Total 120 people have booked this event',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(text: 'The event is organised by  '),
+                    TextSpan(text: widget.eventModel.organizer_name,style: TextStyle(color: Colors.blue,fontSize: 20)),
+                  ]
+                )
+                ),
+              // const Text(
+              //   'This event is organized by ',
+              //   style: TextStyle(color: Colors.white, fontSize: 16),
+              // ),
               const SizedBox(height: 16),
               CustomElevatedButton(
                        onTap: () {

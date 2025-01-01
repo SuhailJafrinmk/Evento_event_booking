@@ -15,3 +15,4 @@ class ErrorFetchingProfileData extends ProfileState{
   ErrorFetchingProfileData({required this.errorMessage});
 }
 class ProfileDataUpdated extends ProfileState{}
+class UpdatingProfileData extends ProfileState{}

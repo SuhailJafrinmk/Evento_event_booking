@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:evento_event_booking/blocs/event/bloc/event_bloc.dart';
 import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/view/home/category_page.dart';
@@ -7,6 +8,8 @@ import 'package:evento_event_booking/widgets/location_events.dart';
 import 'package:evento_event_booking/widgets/trending_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 class HomePage extends StatefulWidget {
   final String userName;
   final String userLocation;
@@ -35,7 +38,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hey ${widget.userName}\n${getWish(DateTime.now())}', style: theme.textTheme.displayLarge),
+            Text('Hey ${widget.userName}',style:theme.textTheme.displayLarge,),
+            AnimatedTextKit(
+              repeatForever: false,
+              animatedTexts: [
+                TyperAnimatedText('Welcome',textStyle: theme.textTheme.displayLarge),
+                TyperAnimatedText('${getWish(DateTime.now())}',textStyle:theme.textTheme.displayLarge),
+              ]
+              ),
+            
             const SizedBox(height: 20),
             BlocBuilder<EventBloc, EventState>(
               builder: (context, state) {
@@ -106,10 +117,10 @@ class _HomePageState extends State<HomePage> {
 String getWish(DateTime dateTime) {
   final hour = dateTime.hour;
   if (hour >= 5 && hour < 12) {
-    return "Good morning!";
+    return "Good morning 😊";
   } else if (hour >= 12 && hour < 17) {
-    return "Good afternoon!";
+    return "Good afternoon ☀️";
   } else {
-    return "Good evening!";
+    return "Good evening 🌇";
   }
 }

@@ -16,6 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
 
   FutureOr<void> editProfileClicked(EditProfileClicked event, Emitter<ProfileState> emit)async{
+    emit(UpdatingProfileData());
     MultipartFile imageFile=await MultipartFile.fromFile(event.image!.path,filename: event.image!.path);
     FormData formData=FormData.fromMap({
       'username':event.userName,

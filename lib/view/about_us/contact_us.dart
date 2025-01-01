@@ -32,14 +32,14 @@ class ContactUsPage extends StatelessWidget {
                         child: Icon(Icons.call),
                       ),
                       title: Text('Contact number'),
-                      subtitle: Text('+91 7306548087'),
+                      subtitle: Text('+91 1234 567 890'),
                     ),
                     const ListTile(
                       leading: CircleAvatar(
                         child: Icon(Icons.mail),
                       ),
                       title: const Text('Email address'),
-                      subtitle: Text('evento@gmail.com'),
+                      subtitle: Text('support@evento.com'),
                     ),
                      const ListTile(
                       leading: CircleAvatar(

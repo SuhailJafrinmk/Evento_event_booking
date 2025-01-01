@@ -44,7 +44,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage(state.userProfile.profilePicture ?? AssetImages.profileAvatar),
+                        backgroundImage:state.userProfile.profilePicture!=null ? NetworkImage(state.userProfile.profilePicture!) : AssetImage(AssetImages.profileAvatar) as ImageProvider
+                        //  NetworkImage(state.userProfile.profilePicture ?? AssetImages.profileAvatar),
                       ),
                       const SizedBox(height: 10),
                       Text(

@@ -1,6 +1,7 @@
 import 'package:evento_event_booking/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:evento_event_booking/blocs/timer_cubit/timer_cubit.dart';
 import 'package:evento_event_booking/utils/app/validations.dart';
+import 'package:evento_event_booking/utils/progress_indicator.dart';
 import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/view/authentication/phone_otp_verification.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
@@ -82,6 +83,9 @@ class _MobileOtpVerificationState extends State<MobileOtpRequesting> {
                                width: size.width,
                               buttonChild: BlocBuilder<AuthenticationBloc, AuthenticationState>(
                                 builder: (context, state) {
+                                  if(state is RequestingMobileOtp){
+                                    return CustomProgressIndicator(color: Colors.black,size: 30,);
+                                  }
                                   return Text('Send otp to verify');
                                 },
                               ),

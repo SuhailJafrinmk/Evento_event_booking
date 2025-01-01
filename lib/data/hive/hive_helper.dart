@@ -87,4 +87,6 @@ Future<void> removeFavourite(EventModel eventModel)async{
   }
 }
 
+// Future<void>
+
 }

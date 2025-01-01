@@ -1,11 +1,23 @@
+import 'package:hive/hive.dart';
 import 'package:evento_event_booking/models/booked_ticket_model.dart';
+// part 'user_profile_model.g.dart';
 
+@HiveType(typeId: 3) // Assign a unique typeId for each class
 class UserProfile {
+  @HiveField(0)
   final String username;
+
+  @HiveField(1)
   final String email;
+
+  @HiveField(2)
   final String phoneNumber;
-  final String profilePicture;
-  final List<BookedTicketModel> tickets;
+
+  @HiveField(3)
+  final String? profilePicture;
+
+  @HiveField(4)
+  final List<BookedTicketModel>? tickets;
 
   UserProfile({
     required this.username,
@@ -17,13 +29,13 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      username: json['username'],
-      email: json['email'],
-      phoneNumber: json['phone_number'],
+      username: json['username'] ?? 'Guest',
+      email: json['email'] ?? 'guest@gmail.com',
+      phoneNumber: json['phone_number'] ?? 'not provided',
       profilePicture: json['profile_picture'],
-      tickets: (json['tickets'] as List)
-          .map((ticketJson) => BookedTicketModel.fromJson(ticketJson))
-          .toList(),
+      tickets: (json['tickets'] as List?)
+          ?.map((ticketJson) => BookedTicketModel.fromJson(ticketJson))
+          .toList() ?? [],
     );
   }
 
@@ -33,7 +45,7 @@ class UserProfile {
       'email': email,
       'phone_number': phoneNumber,
       'profile_picture': profilePicture,
-      'tickets': tickets.map((ticket) => ticket.toJson()).toList(),
+      'tickets': tickets?.map((ticket) => ticket.toJson()).toList() ?? [],
     };
   }
 }

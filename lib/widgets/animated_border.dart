@@ -14,7 +14,7 @@ class AnimatedBorderContainer extends StatefulWidget {
     Key? key,
     required this.radius,
     required this.child,
-    this.duration = const Duration(seconds: 2),
+    this.duration = const Duration(seconds: 10),
     this.borderColor = Colors.white,
     this.borderWidth = 2.0,
     this.padding = const EdgeInsets.all(3.0),

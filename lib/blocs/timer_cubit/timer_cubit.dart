@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
-
 part 'timer_state.dart';
 
 class TimerCubit extends Cubit<TimerState> {
@@ -19,9 +18,13 @@ class TimerCubit extends Cubit<TimerState> {
         emit(TimerRunning(timeLeft: _remainingTime));
       } else {
         emit(TimeOver());
-        cancelTimer(); // Stop the timer when time is over
+        cancelTimer();
       }
     });
+  }
+
+  void resentOtp()async{
+
   }
 
   void cancelTimer() {

@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:evento_event_booking/blocs/profile/bloc/profile_bloc.dart';
 import 'package:evento_event_booking/resources/constants/image_paths.dart';
 import 'package:evento_event_booking/resources/constants/user_colors.dart';
+import 'package:evento_event_booking/utils/progress_indicator.dart';
+import 'package:evento_event_booking/utils/snackbar.dart';
 import 'package:evento_event_booking/widgets/custom_button_black.dart';
 import 'package:evento_event_booking/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                  textEditingController: _nameController),
                 SizedBox(height: 20,),
                 CustomElevatedButton(
-                  buttonChild: Text('Save profile'),
+                  buttonChild: BlocConsumer<ProfileBloc, ProfileState>(
+                    listener: (context, state) {
+                     if(state is ProfileDataUpdated){
+                      ScaffoldMessenger.of(context).showSnackBar(customSnackbar(context, true, 'Profile data updated'));
+                     }
+                    },
+                      builder: (context, state) {
+                      if(state is UpdatingProfileData){
+                        return CustomProgressIndicator(color: Colors.black,size: 20,);
+                      }
+                      return const Text('"Save Profile');
+                    },
+                  ),
+                 // Text('Save profile'),
                   onTap: () {
                     print('button clicked');
                     BlocProvider.of<ProfileBloc>(context).add(EditProfileClicked(image: _profileImage, userName: _nameController.text));
