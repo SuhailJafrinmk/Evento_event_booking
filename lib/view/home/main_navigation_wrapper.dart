@@ -60,6 +60,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
           ProfileScreen(),
         ],
       ),
+      //wduwhduhwhduwhudhwuhduwhuhdwuhduwhiudhd
       bottomNavigationBar: DotCurvedBottomNav(
         scrollController: _scrollController,
         hideOnScroll: true,

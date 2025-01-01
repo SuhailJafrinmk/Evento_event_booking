@@ -52,6 +52,7 @@ class OrganiserDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
+            //huhdieiheuhfheuhiuehfwd
           ],
         ),
       ),
